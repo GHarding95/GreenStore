@@ -1,6 +1,6 @@
 # E-Commerce Website - GreenStore
 
-Mobile responsive store built with React JS
+Mobile responsive E-Commerce store built with React JS
 
 Browse and add products to the basket, edit/update quantities & remove items - checkout button is for show
 

@@ -1,0 +1,106 @@
+.td-n{
+  text-decoration: none!important;
+}
+
+.basket-count{
+  line-height: normal !important;
+  font-size: 18px;
+  font-weight: 600;
+  color: #198754;
+  margin-bottom: -21px;
+  margin-left: 8px;
+  z-index: 1;
+}
+
+.minibasket{
+  color: rgb(25, 135, 84);
+  line-height: normal;
+  width: 45px;
+}
+
+.minibasket:hover{
+  color: rgb(0, 84, 0);
+}
+
+.basket-wrapper{
+  justify-content: center;
+  display: flex!important;
+  text-decoration: none;
+}
+
+.basket-wrapper:hover{
+  transform: scale(1.1);
+} 
+
+.count-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-top {
+  position: sticky!important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(211, 211, 211, 0.8);
+}
+
+/* @media (max-width: 991px){
+  .navbar-top {
+    background-color: rgba(211, 211, 211, 1);
+  } 
+} */
+
+/* .navbar-toggler:focus{
+  color: rgb(25, 135, 84);
+} */
+
+.nav-link.active {
+  color: rgb(25, 135, 84)!important;
+  font-weight: 600;
+}
+
+/* Add this to your navigation.css or a new CSS file */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Initially hidden */
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 999;
+  transition: right 0.3s ease-in-out;
+}
+
+.mobile-menu.open {
+  right: 0; /* Slide in when open */
+}
+
+.mobile-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.mobile-links a {
+  font-size: 1.5rem;
+  margin: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.close-mobile-menu{
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  font-size: 42px;
+  color: rgb(25, 135, 84);
+}
+
+.close-mobile-menu:hover{
+  cursor: pointer;
+}

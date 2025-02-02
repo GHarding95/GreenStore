@@ -7,6 +7,7 @@ import '../cards/cards.css';
 
 export default function Cards({ imageSrc, title, text }) {
   const [showModal, setShowModal] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false); // New state for confirmation modal
   const [quantity, setQuantity] = useState(1);
   const { setCards } = useContext(BasketContext);
 
@@ -18,6 +19,10 @@ export default function Cards({ imageSrc, title, text }) {
     setShowModal(true);
   };
 
+  const handleCloseConfirmation = () => {
+    setShowConfirmation(false);
+  };
+
   const handleQuantityChange = (event) => {
     const value = parseInt(event.target.value, 10);
     setQuantity(value);
@@ -25,7 +30,6 @@ export default function Cards({ imageSrc, title, text }) {
 
   const handleAddToCart = (item) => {
     setCards((prevCards) => [...prevCards, item]);
-    setShowModal(false);
     console.log('Item:', item);
 
     // Retrieve existing cart items from local storage
@@ -51,6 +55,10 @@ export default function Cards({ imageSrc, title, text }) {
     if (countElement) {
       countElement.textContent = totalCount;
     }
+
+    // Close the item details modal and show the confirmation modal
+    setShowModal(false);
+    setShowConfirmation(true);
   };
 
   return (
@@ -66,6 +74,7 @@ export default function Cards({ imageSrc, title, text }) {
         </Card.Body>
       </Card>
 
+      {/* Item Details Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
@@ -91,6 +100,21 @@ export default function Cards({ imageSrc, title, text }) {
             </div>
           </Modal.Footer>
         </Modal.Body>
+      </Modal>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Item Added</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p><strong>{title}</strong> has been added to your basket.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseConfirmation}>
+            OK
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );

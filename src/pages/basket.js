@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -8,6 +8,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 export default function Basket() {
   const [savedItems, setSavedItems] = useState([]);
   const [isQuantityChanged, setIsQuantityChanged] = useState({});
+  const [showModal, setShowModal] = useState(false); // Modal visibility state
 
   useEffect(() => {
     const storedItems = localStorage.getItem('cartItems');
@@ -18,21 +19,12 @@ export default function Basket() {
 
   const handleRemoveItem = (item) => {
     setSavedItems((prevItems) => prevItems.filter((basketItem) => basketItem.title !== item.title));
-    console.log('Removed Item:', item);
 
-    // Retrieve existing cart items from local storage
     const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-    // Filter out the removed item from the existing cart items
     const updatedCartItems = existingCartItems.filter((cartItem) => cartItem.title !== item.title);
-
-    // Store the updated cart items in local storage
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
-    // Calculate the updated count
     const totalCount = updatedCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-
-    // Update the count in the navigation immediately
     const countElement = document.getElementById('basket-count');
     if (countElement) {
       countElement.textContent = totalCount;
@@ -74,6 +66,14 @@ export default function Basket() {
     setIsQuantityChanged(updatedQuantity);
   };
 
+  const handleCheckout = () => {
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   const basketIsEmpty = savedItems.length === 0;
 
   return (
@@ -93,14 +93,14 @@ export default function Basket() {
                       alt={item.title}
                       className="card-img basket-img"
                       style={{ width: '100%' }}
-                      effect='blur'
+                      effect="blur"
                     />
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
                       <h5 className="card-title">{item.title}</h5>
                       <p className="card-text text-muted">{item.text}</p>
-                      <div className='quantity-container'>
+                      <div className="quantity-container">
                         <div>
                           <p className="card-text fw-bold mt-3">
                             Quantity:
@@ -113,13 +113,18 @@ export default function Basket() {
                             />
                           </p>
                         </div>
-                        <div className='quantity-btns'>
-                        <Button className="btn-sm me-2" variant='success' onClick={() => handleUpdateQuantity(item)} disabled={!isQuantityChanged[item.title]} >
-                          Update
-                        </Button>
-                        <Button className="btn-sm" variant='danger' onClick={() => handleRemoveItem(item)}>
-                          Remove
-                        </Button>
+                        <div className="quantity-btns">
+                          <Button
+                            className="btn-sm me-2"
+                            variant="success"
+                            onClick={() => handleUpdateQuantity(item)}
+                            disabled={!isQuantityChanged[item.title]}
+                          >
+                            Update
+                          </Button>
+                          <Button className="btn-sm" variant="danger" onClick={() => handleRemoveItem(item)}>
+                            Remove
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -130,26 +135,40 @@ export default function Basket() {
           ))}
         </>
       )}
-      <div className='d-flex flex-column align-items-center'>
+
+      <div className="d-flex flex-column align-items-center">
         <div className="text-center mt-4 basket-btn">
           <Link to="/products">
             <button className="btn btn-secondary">
-              <FontAwesomeIcon icon={faArrowLeft} className='me-2'/>
+              <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
               Continue Shopping
             </button>
           </Link>
 
           {!basketIsEmpty && (
-          <Link to="#">
-            <button className="btn btn-primary mt-3">
-            <FontAwesomeIcon icon={faShoppingCart} className='me-2'/>
+            <button className="btn btn-primary mt-3" onClick={handleCheckout}>
+              <FontAwesomeIcon icon={faShoppingCart} className="me-2" />
               Checkout
             </button>
-          </Link>
           )}
-
         </div>
-      </div>        
+      </div>
+
+      {/* Checkout Confirmation Modal */}
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Thank You!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Your order has been placed successfully.</p>
+          <p>We appreciate your purchase!</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

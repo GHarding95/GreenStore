@@ -111,7 +111,7 @@ export default function Cards({ imageSrc, title, text, price, currency }) {
           <Modal.Title>Item Added</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p><strong>{title}</strong> has been added to your basket.</p>
+          <p><strong>{title}</strong> added to your basket.</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseConfirmation}>

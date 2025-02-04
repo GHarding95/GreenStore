@@ -7,7 +7,7 @@ import '../cards/cards.css';
 
 export default function Cards({ imageSrc, title, text }) {
   const [showModal, setShowModal] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false); // New state for confirmation modal
+  const [showConfirmation, setShowConfirmation] = useState(false); 
   const [quantity, setQuantity] = useState(1);
   const { setCards } = useContext(BasketContext);
 

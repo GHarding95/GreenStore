@@ -1,3 +1,11 @@
+:root {
+  --green-primary: rgb(25, 135, 84);
+  --green-light: rgba(25, 135, 84, 0.1);
+  --green-dark: rgb(20, 105, 65);
+  --text-dark: #2c3e50;
+  --text-light: #6c757d;
+}
+
 html,
 body {
   height: 100%;
@@ -122,3 +130,68 @@ body {
   }
 }
 
+.about-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 50px auto;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: var(--text-dark);
+}
+
+.about-banner {
+  background: var(--green-primary);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.about-content {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--green-light);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+.about-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.stat-box {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+}
+
+.stat-box h3 {
+  color: var(--green-dark);
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.stat-box p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.ts-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}

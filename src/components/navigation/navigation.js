@@ -58,16 +58,25 @@ export default function Navigation() {
           </MDBNavbarToggler>
           <MDBCollapse navbar show={showNavText}>
             <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
+              
               <MDBNavbarItem>
                 <NavLink className='nav-link' to='/'>
                   Home
                 </NavLink>
               </MDBNavbarItem>
+
+              <MDBNavbarItem>
+                <NavLink className='nav-link' to='/about'>
+                  About
+                </NavLink>
+              </MDBNavbarItem>
+
               <MDBNavbarItem>
                 <NavLink className='nav-link' to='/products'>
                   Products
                 </NavLink>
               </MDBNavbarItem>
+
             </MDBNavbarNav>
             <NavLink className='basket-wrapper nav-link' to='/basket'>
               <span className='count-wrapper'>

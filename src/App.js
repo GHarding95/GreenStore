@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import Products from "./pages/products";
 import Basket from "./pages/basket";
+import About from "./pages/about";
 import useFetchData from './hooks/useFetchData';
 import BasketContext from './hooks/basketContext';
 
@@ -32,6 +33,7 @@ function App() {
             <Routes>              
               <Route exact path="/" element={<Home />} />              
               <Route path="/products" element={<Products setCount={setCount} />} />
+              <Route path="/about" element={<About />} />
               <Route path="/basket" element={<Basket />} />
             </Routes>
           

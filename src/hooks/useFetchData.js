@@ -16,13 +16,15 @@ const useFetchData = () => {
         }
 
         const response = await request.json();
-
         const products = response?.data?.products?.edges || [];
         const fetchedCards = products.map((product) => ({
           imageSrc: product.node.featuredImage?.url,
           title: product.node.title,
           text: product.node.description,
-        }));
+          price: product.node.variants.edges[0]?.node.price.amount, 
+          currency: product.node.variants.edges[0]?.node.price.currencyCode 
+        }));        
+        
 
         setCards(fetchedCards);
         setError(null);

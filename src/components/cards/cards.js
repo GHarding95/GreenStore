@@ -5,7 +5,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import '../cards/cards.css';
 
-export default function Cards({ imageSrc, title, text }) {
+export default function Cards({ imageSrc, title, text, price, currency }) {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false); 
   const [quantity, setQuantity] = useState(1);
@@ -41,7 +41,8 @@ export default function Cards({ imageSrc, title, text }) {
     );
 
     if (!existingCartItems.some((cartItem) => cartItem.title === item.title)) {
-      updatedCartItems.push(item);
+      updatedCartItems.push({ ...item, price, currency });
+
     }
 
     // Store the updated cart items in local storage
@@ -68,6 +69,7 @@ export default function Cards({ imageSrc, title, text }) {
         <Card.Body className="card-body">
           <Card.Title>{title}</Card.Title>
           <Card.Text>{text}</Card.Text>
+          <Card.Text className="fw-bold">Price: ${price} {currency}</Card.Text>
           <Button variant="success" onClick={handleOpenModal}>
             View Details
           </Button>
@@ -82,10 +84,11 @@ export default function Cards({ imageSrc, title, text }) {
         <Modal.Body>
           <LazyLoadImage src={imageSrc} alt={title} style={{ maxWidth: '100%' }} effect="blur" />
           <p>{text}</p> 
+          <p><strong>Price:</strong> {price} {currency}</p>
           <Modal.Footer>
             <div className="d-flex justify-content-between align-items-center">
               <div className='d-flex'>
-                <Button variant="success" onClick={() => handleAddToCart({ imageSrc, title, text, quantity })}>
+                <Button variant="success" onClick={() => handleAddToCart({ imageSrc, title, text, price, currency, quantity })}>
                   Add to Basket
                 </Button>
                 <input

@@ -7,8 +7,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export default function Basket() {
   const [savedItems, setSavedItems] = useState([]);
-  const [isQuantityChanged, setIsQuantityChanged] = useState({});
-  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const storedItems = localStorage.getItem('cartItems');
@@ -34,37 +33,23 @@ export default function Basket() {
   const handleQuantityChange = (item, event) => {
     const newQuantity = parseInt(event.target.value);
     if (newQuantity > 0) {
-      const updatedQuantity = {
-        ...isQuantityChanged,
-        [item.title]: newQuantity !== item.quantity,
-      };
-      setIsQuantityChanged(updatedQuantity);
-      const updatedItems = savedItems.map((savedItem) => {
-        if (savedItem.title === item.title) {
-          return {
-            ...savedItem,
-            quantity: newQuantity,
-          };
-        }
-        return savedItem;
-      });
-      setSavedItems(updatedItems);
+      updateQuantity(item, newQuantity);
     }
   };
+  
 
-  const handleUpdateQuantity = (item) => {
-    localStorage.setItem('cartItems', JSON.stringify(savedItems));
-    const totalCount = savedItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-    const countElement = document.getElementById('basket-count');
-    if (countElement) {
-      countElement.textContent = totalCount;
-    }
-    const updatedQuantity = {
-      ...isQuantityChanged,
-      [item.title]: false,
-    };
-    setIsQuantityChanged(updatedQuantity);
+  const updateQuantity = (item, newQuantity) => {
+    let updatedItems = savedItems.map((savedItem) =>
+      savedItem.title === item.title ? { ...savedItem, quantity: newQuantity } : savedItem
+    );
+  
+    setSavedItems(updatedItems);
+    localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+  
+    // Dispatch a storage event to update the navigation bar mini basket
+    window.dispatchEvent(new Event('storage'));
   };
+  
 
   const handleCheckout = () => {
     setShowModal(true);
@@ -98,8 +83,9 @@ export default function Basket() {
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
-                      <h5 className="card-title">{item.title}</h5>
-                      <p className="card-text text-muted">{item.text}</p>
+                    <h5 className="card-title">{item.title}</h5>
+                    <p className="card-text text-muted">{item.text}</p>
+                    <p className="fw-bold">Price: ${item.price} {item.currency}</p>
                       <div className="quantity-container">
                         <div>
                           <p className="card-text fw-bold mt-3">
@@ -109,19 +95,11 @@ export default function Basket() {
                               className="form-control"
                               value={item.quantity}
                               onChange={(event) => handleQuantityChange(item, event)}
-                              onKeyDown={() => handleUpdateQuantity(item)}
+                              onKeyDown={() => updateQuantity (item)}
                             />
                           </p>
                         </div>
                         <div className="quantity-btns">
-                          <Button
-                            className="btn-sm me-2"
-                            variant="success"
-                            onClick={() => handleUpdateQuantity(item)}
-                            disabled={!isQuantityChanged[item.title]}
-                          >
-                            Update
-                          </Button>
                           <Button className="btn-sm" variant="danger" onClick={() => handleRemoveItem(item)}>
                             Remove
                           </Button>
@@ -153,6 +131,13 @@ export default function Basket() {
           )}
         </div>
       </div>
+
+      {!basketIsEmpty && (
+      <div className="text-center mt-4">
+        <h4>Total: ${savedItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)} {savedItems[0]?.currency}</h4>
+      </div>
+       )}
+
 
       {/* Checkout Confirmation Modal */}
       <Modal show={showModal} onHide={handleClose} centered>

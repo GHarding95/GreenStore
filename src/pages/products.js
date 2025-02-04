@@ -14,11 +14,11 @@ export default function Products() {
         <Row>
           {cards.map((card, index) => (
             <Col key={index} md={3}>
-              <Cards              
-                imageSrc={card.imageSrc}
-                title={card.title}
-                text={card.text}
-              />
+              <Cards imageSrc={card.imageSrc}
+               title={card.title}
+               text={card.text}
+               price={card.price} 
+               currency={card.currency} />
             </Col>
           ))}
         </Row>

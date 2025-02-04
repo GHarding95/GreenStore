@@ -21,15 +21,22 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Retrieve existing cart items from local storage
-    const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-    // Calculate the total count of items in the cart
-    const totalCount = existingCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-
-    // Update the count state
-    setCount(totalCount);
+    const updateCartCount = () => {
+      const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const totalCount = existingCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+      setCount(totalCount);
+    };
+  
+    updateCartCount(); // Run on initial load
+  
+    // Listen for changes in localStorage (cross-tab support)
+    window.addEventListener('storage', updateCartCount);
+  
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+    };
   }, []);
+  
 
   const toggleMobileMenu = () => {
     setShowNavText(false); // Close the old navigation
@@ -58,7 +65,7 @@ export default function Navigation() {
           </MDBNavbarToggler>
           <MDBCollapse navbar show={showNavText}>
             <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-              
+
               <MDBNavbarItem>
                 <NavLink className='nav-link' to='/'>
                   Home

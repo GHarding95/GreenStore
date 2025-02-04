@@ -84,7 +84,7 @@ export default function Cards({ imageSrc, title, text, price, currency }) {
         <Modal.Body>
           <LazyLoadImage src={imageSrc} alt={title} style={{ maxWidth: '100%' }} effect="blur" />
           <p>{text}</p> 
-          <p><strong>Price:</strong> {price} {currency}</p>
+          <p><strong>Price:</strong> ${price} {currency}</p>
           <Modal.Footer>
             <div className="d-flex justify-content-between align-items-center">
               <div className='d-flex'>

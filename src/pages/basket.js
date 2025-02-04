@@ -95,7 +95,9 @@ export default function Basket() {
                               className="form-control"
                               value={item.quantity}
                               onChange={(event) => handleQuantityChange(item, event)}
-                              onKeyDown={() => updateQuantity (item)}
+                              onKeyDown={(e) => e.preventDefault()} // Prevent typing
+                              min="1"
+                              step="1"
                             />
                           </p>
                         </div>

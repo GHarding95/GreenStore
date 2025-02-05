@@ -4,11 +4,29 @@ import BasketContext from '../../hooks/basketContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import '../cards/cards.css';
+import { ProductCard } from '../../types'; 
 
-export default function Cards({ imageSrc, title, text, price, currency }) {
-  const [showModal, setShowModal] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false); 
-  const [quantity, setQuantity] = useState(1);
+interface CardsProps {
+  imageSrc: string;
+  title: string;
+  text: string;
+  price: number;
+  currency: string;
+}
+
+interface CartItem {
+  imageSrc: string;
+  title: string;
+  text: string;
+  price: number;
+  currency: string;
+  quantity: number;
+}
+
+const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency }) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(1);
   const { setCards } = useContext(BasketContext);
 
   const handleCloseModal = () => {
@@ -23,17 +41,18 @@ export default function Cards({ imageSrc, title, text, price, currency }) {
     setShowConfirmation(false);
   };
 
-  const handleQuantityChange = (event) => {
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
     setQuantity(value);
   };
 
-  const handleAddToCart = (item) => {
-    setCards((prevCards) => [...prevCards, item]);
+  const handleAddToCart = (item: CartItem) => {
+    setCards((prevCards: ProductCard[]) => [...prevCards, { imageSrc, title, text, price, currency }]);
+
     console.log('Item:', item);
 
     // Retrieve existing cart items from local storage
-    const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const existingCartItems: CartItem[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
     // Update the quantity of the item in the cart or add it as a new item
     const updatedCartItems = existingCartItems.map((cartItem) =>
@@ -42,7 +61,6 @@ export default function Cards({ imageSrc, title, text, price, currency }) {
 
     if (!existingCartItems.some((cartItem) => cartItem.title === item.title)) {
       updatedCartItems.push({ ...item, price, currency });
-
     }
 
     // Store the updated cart items in local storage
@@ -54,7 +72,7 @@ export default function Cards({ imageSrc, title, text, price, currency }) {
     // Update the count in the navigation immediately
     const countElement = document.getElementById('basket-count');
     if (countElement) {
-      countElement.textContent = totalCount;
+      countElement.textContent = totalCount.toString();
     }
 
     // Close the item details modal and show the confirmation modal
@@ -83,12 +101,17 @@ export default function Cards({ imageSrc, title, text, price, currency }) {
         </Modal.Header>
         <Modal.Body>
           <LazyLoadImage src={imageSrc} alt={title} style={{ maxWidth: '100%' }} effect="blur" />
-          <p>{text}</p> 
+          <p>{text}</p>
           <p><strong>Price:</strong> ${price} {currency}</p>
           <Modal.Footer>
             <div className="d-flex justify-content-between align-items-center">
               <div className='d-flex'>
-                <Button variant="success" onClick={() => handleAddToCart({ imageSrc, title, text, price, currency, quantity })}>
+                <Button
+                  variant="success"
+                  onClick={() =>
+                    handleAddToCart({ imageSrc, title, text, price, currency, quantity })
+                  }
+                >
                   Add to Basket
                 </Button>
                 <input
@@ -121,4 +144,6 @@ export default function Cards({ imageSrc, title, text, price, currency }) {
       </Modal>
     </>
   );
-}
+};
+
+export default Cards;

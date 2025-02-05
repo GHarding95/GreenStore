@@ -5,9 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-export default function Basket() {
-  const [savedItems, setSavedItems] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+// Define the shape of a basket item
+interface BasketItem {
+  imageSrc: string;
+  title: string;
+  text: string;
+  price: number;
+  currency: string;
+  quantity: number;
+}
+
+const Basket: React.FC = () => {
+  const [savedItems, setSavedItems] = useState<BasketItem[]>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     const storedItems = localStorage.getItem('cartItems');
@@ -16,40 +26,37 @@ export default function Basket() {
     }
   }, []);
 
-  const handleRemoveItem = (item) => {
-    setSavedItems((prevItems) => prevItems.filter((basketItem) => basketItem.title !== item.title));
+  const handleRemoveItem = (item: BasketItem) => {
+    const updatedItems = savedItems.filter((basketItem) => basketItem.title !== item.title);
+    setSavedItems(updatedItems);
 
-    const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const updatedCartItems = existingCartItems.filter((cartItem) => cartItem.title !== item.title);
-    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    localStorage.setItem('cartItems', JSON.stringify(updatedItems));
 
-    const totalCount = updatedCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+    const totalCount = updatedItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
     const countElement = document.getElementById('basket-count');
     if (countElement) {
-      countElement.textContent = totalCount;
+      countElement.textContent = totalCount.toString();
     }
   };
 
-  const handleQuantityChange = (item, event) => {
-    const newQuantity = parseInt(event.target.value);
+  const handleQuantityChange = (item: BasketItem, event: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuantity = parseInt(event.target.value, 10);
     if (newQuantity > 0) {
       updateQuantity(item, newQuantity);
     }
   };
-  
 
-  const updateQuantity = (item, newQuantity) => {
-    let updatedItems = savedItems.map((savedItem) =>
+  const updateQuantity = (item: BasketItem, newQuantity: number) => {
+    const updatedItems = savedItems.map((savedItem) =>
       savedItem.title === item.title ? { ...savedItem, quantity: newQuantity } : savedItem
     );
-  
+
     setSavedItems(updatedItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-  
+
     // Dispatch a storage event to update the navigation bar mini basket
     window.dispatchEvent(new Event('storage'));
   };
-  
 
   const handleCheckout = () => {
     setShowModal(true);
@@ -83,9 +90,9 @@ export default function Basket() {
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
-                    <p className="card-text text-muted">{item.text}</p>
-                    <p className="fw-bold">Price: ${item.price} {item.currency}</p>
+                      <h5 className="card-title">{item.title}</h5>
+                      <p className="card-text text-muted">{item.text}</p>
+                      <p className="fw-bold">Price: ${item.price} {item.currency}</p>
                       <div className="quantity-container">
                         <div>
                           <p className="card-text fw-bold mt-3">
@@ -102,7 +109,11 @@ export default function Basket() {
                           </p>
                         </div>
                         <div className="quantity-btns">
-                          <Button className="btn-sm" variant="danger" onClick={() => handleRemoveItem(item)}>
+                          <Button
+                            className="btn-sm"
+                            variant="danger"
+                            onClick={() => handleRemoveItem(item)}
+                          >
                             Remove
                           </Button>
                         </div>
@@ -135,11 +146,16 @@ export default function Basket() {
       </div>
 
       {!basketIsEmpty && (
-      <div className="text-center mt-4">
-        <h4>Total: ${savedItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)} {savedItems[0]?.currency}</h4>
-      </div>
-       )}
-
+        <div className="text-center mt-4">
+          <h4>
+            Total: $
+            {savedItems
+              .reduce((total, item) => total + item.price * item.quantity, 0)
+              .toFixed(2)}{' '}
+            {savedItems[0]?.currency}
+          </h4>
+        </div>
+      )}
 
       {/* Checkout Confirmation Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
@@ -158,4 +174,6 @@ export default function Basket() {
       </Modal>
     </div>
   );
-}
+};
+
+export default Basket;

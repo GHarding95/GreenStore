@@ -3,8 +3,7 @@ import './footer.css';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 
-export default function Footer() {
-
+const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -17,5 +16,7 @@ export default function Footer() {
         </Container>
       </Navbar>
     </footer> 
-  )
-}
+  );
+};
+
+export default Footer;

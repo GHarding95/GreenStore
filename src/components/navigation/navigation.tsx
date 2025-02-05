@@ -15,28 +15,31 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-export default function Navigation() {
-  const [showNavText, setShowNavText] = useState(false);
-  const [count, setCount] = useState(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+interface NavigationProps {
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>; // Add setCount
+}
+
+const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
+  const [showNavText, setShowNavText] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const updateCartCount = () => {
-      const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const totalCount = existingCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-      setCount(totalCount);
+      const existingCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      const totalCount = existingCartItems.reduce((total: number, cartItem: { quantity: number }) => total + cartItem.quantity, 0);
+      setCount(totalCount); // Use the setCount prop
     };
-  
+
     updateCartCount(); // Run on initial load
-  
+
     // Listen for changes in localStorage (cross-tab support)
     window.addEventListener('storage', updateCartCount);
-  
+
     return () => {
       window.removeEventListener('storage', updateCartCount);
     };
-  }, []);
-  
+  }, [setCount]); // Add setCount to the dependency array
 
   const toggleMobileMenu = () => {
     setShowNavText(false); // Close the old navigation
@@ -48,7 +51,7 @@ export default function Navigation() {
       <MDBNavbar expand='lg' className='navbar-top'>
         <MDBContainer>
           <NavLink className='navbar-brand' to='/'>
-            <Image src={logo} alt='logo' width='180px'></Image>
+            <Image src={logo} alt='logo' width='180px' />
           </NavLink>
           <MDBNavbarToggler
             type='button'
@@ -65,7 +68,6 @@ export default function Navigation() {
           </MDBNavbarToggler>
           <MDBCollapse navbar show={showNavText}>
             <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-
               <MDBNavbarItem>
                 <NavLink className='nav-link' to='/'>
                   Home
@@ -83,7 +85,6 @@ export default function Navigation() {
                   Products
                 </NavLink>
               </MDBNavbarItem>
-
             </MDBNavbarNav>
             <NavLink className='basket-wrapper nav-link' to='/basket'>
               <span className='count-wrapper'>
@@ -115,4 +116,6 @@ export default function Navigation() {
       </div>
     </div>
   );
-}
+};
+
+export default Navigation;

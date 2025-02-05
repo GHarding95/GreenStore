@@ -3,18 +3,18 @@ import './App.css';
 import 'typeface-poppins';
 import Navigation from './components/navigation/navigation';
 import Footer from './components/footer/footer';
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/home";
-import Products from "./pages/products";
-import Basket from "./pages/basket";
-import About from "./pages/about";
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/home';
+import Products from './pages/products';
+import Basket from './pages/basket';
+import About from './pages/about';
 import useFetchData from './hooks/useFetchData';
 import BasketContext from './hooks/basketContext';
 
-function App() {
+const App: React.FC = () => {
   const { cards, setCards } = useFetchData();
-  const [count, setCount] = useState(0);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [count, setCount] = useState<number>(0);
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
   useEffect(() => {
     const storedCount = localStorage.getItem('basketCount');
@@ -26,23 +26,22 @@ function App() {
 
   return (
     <div className="App">
-    <BasketContext.Provider value={{ cards, setCards }}>
-      {isInitialized && (
-        <>
-          <Navigation count={count} />          
-            <Routes>              
-              <Route exact path="/" element={<Home />} />              
+      <BasketContext.Provider value={{ cards, setCards }}>
+        {isInitialized && (
+          <>
+            <Navigation count={count} setCount={setCount} />
+            <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products setCount={setCount} />} />
               <Route path="/about" element={<About />} />
               <Route path="/basket" element={<Basket />} />
             </Routes>
-          
-          <Footer />
-        </>
-      )}
-    </BasketContext.Provider>
-  </div>
+            <Footer />
+          </>
+        )}
+      </BasketContext.Provider>
+    </div>
   );
-}
+};
 
 export default App;

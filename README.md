@@ -1,6 +1,6 @@
 # E-Commerce Website - GreenStore
 
-Mobile responsive E-Commerce store built with React JS
+Mobile responsive E-Commerce store built with React JS & Typescript
 
 Browse and add products to the basket, edit/update quantities & remove items - checkout button is for show
 
@@ -14,10 +14,11 @@ Browse and add products to the basket, edit/update quantities & remove items - c
 
 - VS Code
 - React JS
+- Typescript
 - Bootstrap
 - React-Bootstrap
 - Font-Awesome
-- React-Router-DOM
+- React-Router
 - useFetch
 - useContext
 - Local storage

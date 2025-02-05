@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function About() {
+const About: React.FC = () => {
   return (
     <div className="about-container">
       <div className="about-banner">
@@ -33,4 +33,6 @@ export default function About() {
       </div>
     </div>
   );
-}
+};
+
+export default About;

@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react';
+import { ProductCard } from '../types'; // Ensure this matches your types file
 
-const useFetchData = () => {
-  const [cards, setCards] = useState([]);
-  const [error, setError] = useState(null);
+interface UseFetchDataResult {
+  cards: ProductCard[];
+  setCards: React.Dispatch<React.SetStateAction<ProductCard[]>>;
+  error: string | null;
+}
+
+const useFetchData = (): UseFetchDataResult => {
+  const [cards, setCards] = useState<ProductCard[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,14 +24,15 @@ const useFetchData = () => {
 
         const response = await request.json();
         const products = response?.data?.products?.edges || [];
-        const fetchedCards = products.map((product) => ({
-          imageSrc: product.node.featuredImage?.url,
+
+        // Map API response to the ProductCard type
+        const fetchedCards: ProductCard[] = products.map((product: any) => ({
+          imageSrc: product.node.featuredImage?.url ?? "", // Ensure imageSrc is always a string
           title: product.node.title,
           text: product.node.description,
-          price: product.node.variants.edges[0]?.node.price.amount, 
-          currency: product.node.variants.edges[0]?.node.price.currencyCode 
-        }));        
-        
+          price: parseFloat(product.node.variants.edges[0]?.node.price.amount) || 0, // Ensure price is a number
+          currency: product.node.variants.edges[0]?.node.price.currencyCode || "USD", // Default currency
+        }));
 
         setCards(fetchedCards);
         setError(null);
@@ -35,7 +43,7 @@ const useFetchData = () => {
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   return { cards, setCards, error };
 };

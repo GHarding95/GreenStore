@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer>
+    <footer role="contentinfo">
       <Navbar bg="success" expand='false'>
         <Container className='d-inline'>     
           <div>

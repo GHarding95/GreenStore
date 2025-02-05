@@ -46,81 +46,81 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
 
   return (
     <div>
-      <MDBNavbar expand='lg' className='navbar-top'>
-        <MDBContainer className='nav-container'>
-          <div className='nav-left'>
-            <NavLink className='navbar-brand logo-container' to='/'>
-              <Image src={logo} alt='logo' className='responsive-logo' />
-            </NavLink>
-          </div>
-
-          <div className='nav-middle'>
-            <MDBCollapse navbar show={showNavText}>
-              <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-                <MDBNavbarItem>
-                  <NavLink className='nav-link' to='/'>
-                    Home
-                  </NavLink>
-                </MDBNavbarItem>
-                <MDBNavbarItem>
-                  <NavLink className='nav-link' to='/about'>
-                    About
-                  </NavLink>
-                </MDBNavbarItem>
-                <MDBNavbarItem>
-                  <NavLink className='nav-link' to='/products'>
-                    Products
-                  </NavLink>
-                </MDBNavbarItem>
-              </MDBNavbarNav>
-            </MDBCollapse>
-          </div>
-
-          <div className='nav-right'>
-            <NavLink className='basket-wrapper nav-link' to='/basket'>
-              <span className='count-wrapper'>
-                <span id='basket-count' className='basket-count'>
-                  {count}
-                </span>
-                <img src={cart} className='minibasket' alt='shopping cart' />
-              </span>
-            </NavLink>
-            
-            <MDBNavbarToggler
-              type='button'
-              className='mobile-toggle'
-              aria-controls='navbarText'
-              aria-expanded='false'
-              aria-label='Toggle navigation'
-              onClick={toggleMobileMenu}
-            >
-              {mobileMenuOpen ? (
-                <FontAwesomeIcon icon={faTimes} />
-              ) : (
-                <FontAwesomeIcon icon={faBars} />
-              )}
-            </MDBNavbarToggler>
-          </div>
-        </MDBContainer>
-      </MDBNavbar>
-
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <div className='mobile-links'>
-          <div className='close-mobile-menu' onClick={toggleMobileMenu}>
-            <FontAwesomeIcon icon={faTimes} />
-          </div>
-          <NavLink className='nav-link' to='/' onClick={toggleMobileMenu}>
-            Home
-          </NavLink>
-          <NavLink className='nav-link' to='/products' onClick={toggleMobileMenu}>
-            Products
-          </NavLink>
-          <NavLink className='nav-link' to='/basket' onClick={toggleMobileMenu}>
-            Basket
+    <MDBNavbar expand='lg' className='navbar-top' role="navigation" aria-label="Main navigation">
+      <MDBContainer className='nav-container'>
+        <div className='nav-left'>
+          <NavLink className='navbar-brand logo-container' to='/'>
+            <Image src={logo} alt='GreenStore logo' className='responsive-logo' />
           </NavLink>
         </div>
+
+        <div className='nav-middle'>
+          <MDBCollapse navbar show={showNavText}>
+            <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
+              <MDBNavbarItem>
+                <NavLink className='nav-link' to='/'>
+                  Home
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <NavLink className='nav-link' to='/about'>
+                  About
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <NavLink className='nav-link' to='/products'>
+                  Products
+                </NavLink>
+              </MDBNavbarItem>
+            </MDBNavbarNav>
+          </MDBCollapse>
+        </div>
+
+        <div className='nav-right'>
+          <NavLink className='basket-wrapper nav-link' to='/basket' aria-label="View basket">
+            <span className='count-wrapper'>
+              <span id='basket-count' className='basket-count'>
+                {count}
+              </span>
+              <img src={cart} className='minibasket' alt='shopping cart' />
+            </span>
+          </NavLink>
+          
+          <MDBNavbarToggler
+            type='button'
+            className='mobile-toggle'
+            aria-controls='navbarText'
+            aria-expanded='false'
+            aria-label='Toggle navigation'
+            onClick={toggleMobileMenu}
+          >
+            {mobileMenuOpen ? (
+              <FontAwesomeIcon icon={faTimes} />
+            ) : (
+              <FontAwesomeIcon icon={faBars} />
+            )}
+          </MDBNavbarToggler>
+        </div>
+      </MDBContainer>
+    </MDBNavbar>
+
+    <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} role="dialog" aria-modal="true">
+      <div className='mobile-links'>
+        <div className='close-mobile-menu' onClick={toggleMobileMenu}>
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
+        <NavLink className='nav-link' to='/' onClick={toggleMobileMenu}>
+          Home
+        </NavLink>
+        <NavLink className='nav-link' to='/products' onClick={toggleMobileMenu}>
+          Products
+        </NavLink>
+        <NavLink className='nav-link' to='/basket' onClick={toggleMobileMenu}>
+          Basket
+        </NavLink>
       </div>
     </div>
+  </div>
   );
 };
 

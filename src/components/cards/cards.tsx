@@ -82,7 +82,7 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
     const countElement = document.getElementById('basket-count');
     if (countElement) {
       countElement.textContent = totalCount.toString();
-    }
+    }    
 
     // Close the item details modal and show the confirmation modal
     setShowModal(false);
@@ -92,19 +92,19 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
   return (
     <>
       <Card>
-        <LazyLoadImage className="card-img-top" src={imageSrc} onClick={handleOpenModal} effect="blur" />
+        <LazyLoadImage className="card-img-top" src={imageSrc} onClick={handleOpenModal} alt={title} tabIndex={0} role="button" effect="blur" onKeyPress={(event) => event.key === 'Enter' && handleOpenModal()} />
         <Card.Body className="card-body">
-          <Card.Title>{title}</Card.Title>
+          <Card.Title as="h4">{title}</Card.Title>
           <Card.Text>{text}</Card.Text>
           <Card.Text className="fw-bold">Price: ${price} {currency}</Card.Text>
-          <Button variant="success" onClick={handleOpenModal}>
+          <Button variant="success" onClick={handleOpenModal} aria-label={`View details of ${title}`}>
             View Details
           </Button>
         </Card.Body>
       </Card>
 
       {/* Item Details Modal */}
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={handleCloseModal} role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
@@ -130,6 +130,7 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
                   min="1"
                   max="99"
                   onChange={handleQuantityChange}
+                  aria-label="Quantity"
                   style={{ width: '70px', marginLeft: '10px' }}
                 />
               </div>
@@ -139,7 +140,7 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
       </Modal>
 
       {/* Confirmation Modal */}
-      <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered>
+      <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered role="alertdialog" aria-labelledby="confirmation-title">
         <Modal.Header closeButton>
           <Modal.Title>Item Added</Modal.Title>
         </Modal.Header>
@@ -152,6 +153,8 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <div id="basket-count" aria-live="polite" className="sr-only"></div>
     </>
   );
 };

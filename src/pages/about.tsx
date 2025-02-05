@@ -2,7 +2,7 @@ import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <div className="about-container">
+    <div className="about-container" role="main">
       <div className="about-banner">
         <h1>About GreenStore</h1>
       </div>

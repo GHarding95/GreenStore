@@ -111,7 +111,7 @@ const Basket: React.FC = () => {
   const basketIsEmpty = savedItems.length === 0;
 
   return (
-    <div className="container p-5 px-3">
+    <div className="container p-5 px-3" role="main">
       {!basketIsEmpty && <h3 className="mb-4">Your Basket</h3>}
       {basketIsEmpty ? (
         <h3 className="text-center">Your basket is empty.</h3>
@@ -148,6 +148,7 @@ const Basket: React.FC = () => {
                               min="1"
                               max={MAX_QUANTITY}
                               step="1"
+                              aria-label={`Quantity of ${item.title}`}
                             />
                           </p>
                         </div>
@@ -156,6 +157,7 @@ const Basket: React.FC = () => {
                             className="btn-sm"
                             variant="danger"
                             onClick={() => handleRemoveItem(item)}
+                            aria-label={`Remove ${item.title} from basket`}
                           >
                             Remove
                           </Button>

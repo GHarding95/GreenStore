@@ -104,7 +104,7 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
       </MDBContainer>
     </MDBNavbar>
 
-    <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} role="dialog" aria-modal="true">
+    <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-label="mobile-menu">
       <div className='mobile-links'>
         <div className='close-mobile-menu' onClick={toggleMobileMenu}>
           <FontAwesomeIcon icon={faTimes} />

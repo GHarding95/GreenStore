@@ -42,8 +42,8 @@ body {
 }
 
 .home-container {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('./assets/landscape.jpg');
-  background-position: top;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('./assets/landscape.webp');
+  background-position: center;
   background-size: cover;
   height: 82vh;
   display: flex;

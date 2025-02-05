@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { Card, Button, Modal } from 'react-bootstrap';
 import BasketContext from '../../hooks/basketContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -54,13 +54,10 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
     setQuantity(value);
   };
   
-
-  const handleAddToCart = (item: CartItem) => {
+const handleAddToCart = useCallback(
+  (item: CartItem) => {
     setCards((prevCards: ProductCard[]) => [...prevCards, { imageSrc, title, text, price, currency }]);
 
-    console.log('Item:', item);
-
-    // Retrieve existing cart items from local storage
     const existingCartItems: CartItem[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
     // Update the quantity of the item in the cart or add it as a new item
@@ -72,27 +69,36 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
       updatedCartItems.push({ ...item, price, currency });
     }
 
-    // Store the updated cart items in local storage
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
-    // Calculate the updated count
     const totalCount = updatedCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
 
-    // Update the count in the navigation immediately
+    // Use state to update the basket count dynamically
     const countElement = document.getElementById('basket-count');
     if (countElement) {
       countElement.textContent = totalCount.toString();
-    }    
+    }
 
-    // Close the item details modal and show the confirmation modal
     setShowModal(false);
     setShowConfirmation(true);
-  };
+  },
+  [setCards, imageSrc, title, text, price, currency] // ✅ Add dependencies
+);
+
 
   return (
     <>
       <Card>
-        <LazyLoadImage className="card-img-top" src={imageSrc} onClick={handleOpenModal} alt={title} tabIndex={0} role="button" effect="blur" onKeyPress={(event) => event.key === 'Enter' && handleOpenModal()} />
+        <LazyLoadImage 
+          className="card-img-top"
+          src={imageSrc} 
+          srcSet={`${imageSrc}?w=300 300w, ${imageSrc}?w=600 600w, ${imageSrc}?w=1200 1200w`}
+          sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+          onClick={handleOpenModal} 
+          alt={title} 
+          effect="blur" 
+          onKeyPress={(event) => event.key === 'Enter' && handleOpenModal()}
+        />
         <Card.Body className="card-body">
           <Card.Title as="h4">{title}</Card.Title>
           <Card.Text>{text}</Card.Text>

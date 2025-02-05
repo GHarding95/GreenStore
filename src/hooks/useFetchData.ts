@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ProductCard } from '../types'; // Ensure this matches your types file
+import { ProductCard } from '../types';
 
 interface UseFetchDataResult {
   cards: ProductCard[];
@@ -27,11 +27,11 @@ const useFetchData = (): UseFetchDataResult => {
 
         // Map API response to the ProductCard type
         const fetchedCards: ProductCard[] = products.map((product: any) => ({
-          imageSrc: product.node.featuredImage?.url ?? "", // Ensure imageSrc is always a string
+          imageSrc: product.node.featuredImage?.url ?? "",
           title: product.node.title,
           text: product.node.description,
           price: parseFloat(product.node.variants.edges[0]?.node.price.amount) || 0, // Ensure price is a number
-          currency: product.node.variants.edges[0]?.node.price.currencyCode || "USD", // Default currency
+          currency: product.node.variants.edges[0]?.node.price.currencyCode || "USD",
         }));
 
         setCards(fetchedCards);

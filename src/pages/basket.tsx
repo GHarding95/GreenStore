@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-// Define the shape of a basket item
 interface BasketItem {
   imageSrc: string;
   title: string;
@@ -18,6 +17,7 @@ interface BasketItem {
 const Basket: React.FC = () => {
   const [savedItems, setSavedItems] = useState<BasketItem[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const MAX_QUANTITY = 99;
 
   useEffect(() => {
     const storedItems = localStorage.getItem('cartItems');
@@ -40,9 +40,52 @@ const Basket: React.FC = () => {
   };
 
   const handleQuantityChange = (item: BasketItem, event: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = parseInt(event.target.value, 10);
-    if (newQuantity > 0) {
-      updateQuantity(item, newQuantity);
+    const value = event.target.value;
+  
+    if (value === "") {
+      updateQuantity(item, 1); // Set to minimum value when empty
+      return;
+    }
+  
+    const newQuantity = parseInt(value, 10);
+  
+    if (!isNaN(newQuantity)) {
+      if (newQuantity >= 1 && newQuantity <= MAX_QUANTITY) {
+        updateQuantity(item, newQuantity);
+      } else if (newQuantity > MAX_QUANTITY) {
+        updateQuantity(item, MAX_QUANTITY);
+      }
+    }
+  };
+  
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow: backspace, delete, tab, escape, enter, decimal, and arrow keys
+    if (
+      event.key === 'Backspace' ||
+      event.key === 'Delete' ||
+      event.key === 'Tab' ||
+      event.key === 'Escape' ||
+      event.key === 'Enter' ||
+      event.key === '.' ||
+      event.key === 'ArrowLeft' ||
+      event.key === 'ArrowRight' ||
+      event.key === 'ArrowUp' ||
+      event.key === 'ArrowDown'
+    ) {
+      // Check if it's an arrow up and current value is at max
+      if (event.key === 'ArrowUp') {
+        const currentValue = parseInt((event.target as HTMLInputElement).value, 10);
+        if (currentValue >= MAX_QUANTITY) {
+          event.preventDefault();
+        }
+      }
+      return;
+    }
+
+    // Prevent non-numeric keys
+    if (!/[0-9]/.test(event.key)) {
+      event.preventDefault();
     }
   };
 
@@ -54,7 +97,6 @@ const Basket: React.FC = () => {
     setSavedItems(updatedItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedItems));
 
-    // Dispatch a storage event to update the navigation bar mini basket
     window.dispatchEvent(new Event('storage'));
   };
 
@@ -102,8 +144,9 @@ const Basket: React.FC = () => {
                               className="form-control"
                               value={item.quantity}
                               onChange={(event) => handleQuantityChange(item, event)}
-                              onKeyDown={(e) => e.preventDefault()} // Prevent typing
+                              onKeyDown={handleKeyDown}
                               min="1"
+                              max={MAX_QUANTITY}
                               step="1"
                             />
                           </p>
@@ -157,7 +200,6 @@ const Basket: React.FC = () => {
         </div>
       )}
 
-      {/* Checkout Confirmation Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Thank You!</Modal.Title>

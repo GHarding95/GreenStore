@@ -42,9 +42,18 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
   };
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10);
+    let value = parseInt(event.target.value, 10);
+  
+    // Ensure value stays within 1-99 range
+    if (isNaN(value) || value < 1) {
+      value = 1;
+    } else if (value > 99) {
+      value = 99;
+    }
+  
     setQuantity(value);
   };
+  
 
   const handleAddToCart = (item: CartItem) => {
     setCards((prevCards: ProductCard[]) => [...prevCards, { imageSrc, title, text, price, currency }]);
@@ -119,6 +128,7 @@ const Cards: React.FC<CardsProps> = ({ imageSrc, title, text, price, currency })
                   className="card-input"
                   value={quantity}
                   min="1"
+                  max="99"
                   onChange={handleQuantityChange}
                   style={{ width: '70px', marginLeft: '10px' }}
                 />

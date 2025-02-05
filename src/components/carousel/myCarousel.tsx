@@ -15,13 +15,12 @@ import { Container, Carousel } from 'react-bootstrap';
 import './myCarousel.css';
 
 interface Icon {
-  icon: IconDefinition | string; // FontAwesome icon (IconDefinition) or image path (string)
+  icon: IconDefinition | string;
   name: string;
   color: string;
   type: 'fa' | 'img'; // Type to differentiate between FontAwesome icons and images
 }
 
-// Define the icon data array with the Icon type
 const iconData: Icon[] = [
   { icon: faHtml5, name: 'HTML5', color: '#e34c26', type: 'fa' },
   { icon: faCss3, name: 'CSS3', color: '#2965f1', type: 'fa' },
@@ -34,10 +33,8 @@ const iconData: Icon[] = [
 ];
 
 const MyCarousel: React.FC = () => {
-  // Define the type for the hoveredIcon state
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
-  // Define the type for the handleIconHover function
   const handleIconHover = (iconName: string | null) => {
     setHoveredIcon(iconName);
   };

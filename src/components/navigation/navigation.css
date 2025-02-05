@@ -1,41 +1,46 @@
-.td-n{
-  text-decoration: none!important;
-}
-
-.basket-count{
-  line-height: normal !important;
-  font-size: 18px;
-  font-weight: 600;
-  color: #198754;
-  margin-bottom: -21px;
-  margin-left: 8px;
-  z-index: 1;
-}
-
-.minibasket{
-  color: rgb(25, 135, 84);
-  line-height: normal;
-  width: 45px;
-}
-
-.minibasket:hover{
-  color: rgb(0, 84, 0);
-}
-
-.basket-wrapper{
-  justify-content: center;
-  display: flex!important;
-  text-decoration: none;
-}
-
-.basket-wrapper:hover{
-  transform: scale(1.1);
-} 
-
-.count-wrapper{
+.nav-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.logo-container {
+  display: block;
+}
+
+.responsive-logo {
+  width: 180px;
+  height: auto;
+  transition: width 0.3s ease;
+}
+
+@media (max-width: 400px) {
+  .responsive-logo {
+    width: 155px; 
+  }
+}
+
+.nav-middle {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-toggle {
+  display: none;
 }
 
 .navbar-top {
@@ -47,26 +52,72 @@
   background-color: rgba(211, 211, 211, 0.8);
 }
 
-/* @media (max-width: 991px){
-  .navbar-top {
-    background-color: rgba(211, 211, 211, 1);
-  } 
-} */
-
-/* .navbar-toggler:focus{
-  color: rgb(25, 135, 84);
-} */
-
-.nav-link.active {
-  color: rgb(25, 135, 84)!important;
-  font-weight: 600;
+.td-n {
+  text-decoration: none!important;
 }
 
-/* Add this to your navigation.css or a new CSS file */
+.basket-count {
+  line-height: normal !important;
+  font-size: 15px;
+  font-weight: 600;
+  color: #198754;
+  margin-bottom: -21px;
+  margin-left: 8px;
+  z-index: 1;
+}
+
+.minibasket {
+  color: rgb(25, 135, 84);
+  line-height: normal;
+  width: 45px;
+}
+
+.minibasket:hover {
+  color: rgb(0, 84, 0);
+}
+
+.basket-wrapper {
+  justify-content: center;
+  display: flex!important;
+  text-decoration: none;
+  padding-right: 10px!important;
+}
+
+.basket-wrapper:hover {
+  transform: scale(1.1);
+}
+
+.count-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Mobile styles */
+
+@media (max-width: 991px) {
+  .nav-middle {
+    display: none;
+  }
+  
+  .mobile-toggle {
+    display: block;
+  }
+
+  .nav-right {
+    gap: 0.5rem;
+  }
+
+  .basket-wrapper {
+    order: -1;
+  }
+}
+
+/* Rest of your existing mobile menu styles */
 .mobile-menu {
   position: fixed;
   top: 0;
-  right: -100%; /* Initially hidden */
+  right: -100%;
   width: 100%;
   height: 100%;
   background-color: white;
@@ -75,7 +126,7 @@
 }
 
 .mobile-menu.open {
-  right: 0; /* Slide in when open */
+  right: 0;
 }
 
 .mobile-links {
@@ -93,7 +144,7 @@
   color: black;
 }
 
-.close-mobile-menu{
+.close-mobile-menu {
   position: absolute;
   top: 0px;
   right: 15px;
@@ -101,6 +152,11 @@
   color: rgb(25, 135, 84);
 }
 
-.close-mobile-menu:hover{
+.close-mobile-menu:hover {
   cursor: pointer;
+}
+
+.nav-link.active {
+  color: rgb(25, 135, 84)!important;
+  font-weight: 600;
 }

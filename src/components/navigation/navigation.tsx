@@ -17,7 +17,7 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface NavigationProps {
   count: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>; // Add setCount
+  setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
@@ -28,64 +28,55 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
     const updateCartCount = () => {
       const existingCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
       const totalCount = existingCartItems.reduce((total: number, cartItem: { quantity: number }) => total + cartItem.quantity, 0);
-      setCount(totalCount); // Use the setCount prop
+      setCount(totalCount);
     };
 
-    updateCartCount(); // Run on initial load
-
-    // Listen for changes in localStorage (cross-tab support)
+    updateCartCount();
     window.addEventListener('storage', updateCartCount);
 
     return () => {
       window.removeEventListener('storage', updateCartCount);
     };
-  }, [setCount]); // Add setCount to the dependency array
+  }, [setCount]);
 
   const toggleMobileMenu = () => {
-    setShowNavText(false); // Close the old navigation
-    setMobileMenuOpen(!mobileMenuOpen); // Toggle the mobile menu
+    setShowNavText(false);
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
     <div>
       <MDBNavbar expand='lg' className='navbar-top'>
-        <MDBContainer>
-          <NavLink className='navbar-brand' to='/'>
-            <Image src={logo} alt='logo' width='180px' />
-          </NavLink>
-          <MDBNavbarToggler
-            type='button'
-            aria-controls='navbarText'
-            aria-expanded='false'
-            aria-label='Toggle navigation'
-            onClick={toggleMobileMenu}
-          >
-            {mobileMenuOpen ? (
-              <FontAwesomeIcon icon={faTimes} />
-            ) : (
-              <FontAwesomeIcon icon={faBars} />
-            )}
-          </MDBNavbarToggler>
-          <MDBCollapse navbar show={showNavText}>
-            <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-              <MDBNavbarItem>
-                <NavLink className='nav-link' to='/'>
-                  Home
-                </NavLink>
-              </MDBNavbarItem>
+        <MDBContainer className='nav-container'>
+          <div className='nav-left'>
+            <NavLink className='navbar-brand logo-container' to='/'>
+              <Image src={logo} alt='logo' className='responsive-logo' />
+            </NavLink>
+          </div>
 
-              <MDBNavbarItem>
-                <NavLink className='nav-link' to='/about'>
-                  About
-                </NavLink>
-              </MDBNavbarItem>
+          <div className='nav-middle'>
+            <MDBCollapse navbar show={showNavText}>
+              <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
+                <MDBNavbarItem>
+                  <NavLink className='nav-link' to='/'>
+                    Home
+                  </NavLink>
+                </MDBNavbarItem>
+                <MDBNavbarItem>
+                  <NavLink className='nav-link' to='/about'>
+                    About
+                  </NavLink>
+                </MDBNavbarItem>
+                <MDBNavbarItem>
+                  <NavLink className='nav-link' to='/products'>
+                    Products
+                  </NavLink>
+                </MDBNavbarItem>
+              </MDBNavbarNav>
+            </MDBCollapse>
+          </div>
 
-              <MDBNavbarItem>
-                <NavLink className='nav-link' to='/products'>
-                  Products
-                </NavLink>
-              </MDBNavbarItem>
-            </MDBNavbarNav>
+          <div className='nav-right'>
             <NavLink className='basket-wrapper nav-link' to='/basket'>
               <span className='count-wrapper'>
                 <span id='basket-count' className='basket-count'>
@@ -94,7 +85,22 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
                 <img src={cart} className='minibasket' alt='shopping cart' />
               </span>
             </NavLink>
-          </MDBCollapse>
+            
+            <MDBNavbarToggler
+              type='button'
+              className='mobile-toggle'
+              aria-controls='navbarText'
+              aria-expanded='false'
+              aria-label='Toggle navigation'
+              onClick={toggleMobileMenu}
+            >
+              {mobileMenuOpen ? (
+                <FontAwesomeIcon icon={faTimes} />
+              ) : (
+                <FontAwesomeIcon icon={faBars} />
+              )}
+            </MDBNavbarToggler>
+          </div>
         </MDBContainer>
       </MDBNavbar>
 

@@ -42,7 +42,7 @@ body {
 }
 
 .home-container {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('./assets/landscape.webp');
+  background-image: url('./assets/landscape.webp'), linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
   background-position: center;
   background-size: cover;
   height: 82vh;

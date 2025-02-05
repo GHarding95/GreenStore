@@ -13,6 +13,15 @@ const useFetchData = (): UseFetchDataResult => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const cacheKey = 'cachedProducts';
+      const cachedData = localStorage.getItem(cacheKey);
+
+      // Use cached data if available
+      if (cachedData) {
+        setCards(JSON.parse(cachedData));
+        return;
+      }
+
       try {
         const request = await fetch(
           'https://mock.shop/api?query={products(first:%2020){edges%20{node%20{id%20title%20description%20featuredImage%20{id%20url}%20variants(first:%203){edges%20{node%20{price%20{amount%20currencyCode}}}}}}}}'
@@ -35,6 +44,7 @@ const useFetchData = (): UseFetchDataResult => {
         }));
 
         setCards(fetchedCards);
+        localStorage.setItem(cacheKey, JSON.stringify(fetchedCards)); // Cache the data
         setError(null);
       } catch (error) {
         console.error('Error fetching data:', error);

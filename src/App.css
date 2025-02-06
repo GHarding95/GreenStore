@@ -235,3 +235,18 @@ span {
   font-weight: normal;
 }
 
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 2px solid #198754;
+}
+
+.form-control:focus {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #198754!important;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(25, 135, 84, .25)!important;
+}

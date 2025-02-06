@@ -17,12 +17,11 @@
 - README.md
 - src
   - App.css
-  - App.test.js
   - App.tsx
   - assets
     - cart.svg
     - greenstore_logo.png
-    - landscape.jpg
+    - landscape.webp
     - ts-logo.png
   - components
     - cards
@@ -30,9 +29,11 @@
       - cards.tsx
     - carousel
       - myCarousel.css
+      - myCarousel.test.tsx
       - myCarousel.tsx
     - footer
       - footer.css
+      - footer.test.tsx
       - footer.tsx
     - navigation
       - navigation.css
@@ -42,13 +43,13 @@
     - basketContext.ts
     - useFetchData.ts
   - index.css
-  - index.js
+  - index.tsx
   - pages
     - about.tsx
     - basket.tsx
     - home.tsx
     - products.tsx
-  - reportWebVitals.js
-  - setupTests.js
+  - setupTests.ts
   - types.ts
 - tsconfig.json
+- vite.config.ts

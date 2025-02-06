@@ -126,7 +126,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
             <p><strong>{title}</strong> added to your basket.</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={handleCloseConfirmation}>
+            <Button variant="success" onClick={handleCloseConfirmation}>
               OK
             </Button>
           </Modal.Footer>

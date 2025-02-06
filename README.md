@@ -7,6 +7,7 @@ Browse and add products to the basket, edit/update quantities & remove items - c
 ## Pages
 
 - Home
+- About
 - Products
 - Basket
 
@@ -15,15 +16,14 @@ Browse and add products to the basket, edit/update quantities & remove items - c
 - VS Code
 - React JS
 - Typescript
-- Bootstrap
-- React-Bootstrap
-- Font-Awesome
-- React-Router
-- useFetch
-- useContext
+- React Bootstrap
+- Font Awesome
+- React Router
+- React Context 
 - Local storage
 - Affinity Designer (to create logo & favicon)
 - Mock.Shop Products API
+- Vitest + React Testing Library
 
 ## Getting Started
 

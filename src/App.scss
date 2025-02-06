@@ -12,13 +12,13 @@ html, body {
   height: 100%;
   font-family: 'Poppins', sans-serif;
 
-  // Hide scrollbar for all browsers
-  -ms-overflow-style: none; // IE, Edge
-  scrollbar-width: none; // Firefox
+//   // Hide scrollbar for all browsers
+//   -ms-overflow-style: none; // IE, Edge
+//   scrollbar-width: none; // Firefox
 
-  &::-webkit-scrollbar {
-    display: none; // Chrome, Safari, Opera
-  }
+//   &::-webkit-scrollbar {
+//     display: none; // Chrome, Safari, Opera
+//   }
 }
 
 // App Component

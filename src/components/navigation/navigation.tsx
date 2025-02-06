@@ -112,12 +112,15 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
         <NavLink className='nav-link' to='/' onClick={toggleMobileMenu}>
           Home
         </NavLink>
+        <NavLink className='nav-link' to='/about' onClick={toggleMobileMenu}>
+          About
+        </NavLink>
         <NavLink className='nav-link' to='/products' onClick={toggleMobileMenu}>
           Products
         </NavLink>
-        <NavLink className='nav-link' to='/basket' onClick={toggleMobileMenu}>
+        {/* <NavLink className='nav-link' to='/basket' onClick={toggleMobileMenu}>
           Basket
-        </NavLink>
+        </NavLink> */}
       </div>
     </div>
   </div>

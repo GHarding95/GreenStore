@@ -111,6 +111,7 @@
   .basket-wrapper {
     order: -1;
   }
+
 }
 
 /* Rest of your existing mobile menu styles */
@@ -160,3 +161,4 @@
   color: rgb(25, 135, 84)!important;
   font-weight: 600;
 }
+

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import App from '../../App';
 import { describe, test, expect, vi } from 'vitest';
-import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+import { BrowserRouter } from 'react-router-dom';
 
 // Mock the Navigation component to avoid external dependency issues
 vi.mock('../../components/navigation/navigation', () => ({

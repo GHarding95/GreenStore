@@ -29,6 +29,7 @@ const Products: React.FC<ProductsProps> = ({ setCount }) => {
         <Col>
           <Form.Control
             type="text"
+            name='product-search'
             placeholder="Search for a product..."
             value={searchQuery}
             onChange={handleSearchChange}

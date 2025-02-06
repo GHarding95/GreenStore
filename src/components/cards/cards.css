@@ -8,8 +8,8 @@
   cursor: pointer;
 }
 
-.card img:hover {
-  transform: scale(1.1);
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card-body {

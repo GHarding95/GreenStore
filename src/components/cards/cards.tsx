@@ -137,21 +137,21 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
         </Modal>
       )}
 
-      {showConfirmation && (
-        <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered role="alertdialog" aria-labelledby="confirmation-title">
-          <Modal.Header closeButton>
-            <Modal.Title>Item Added</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p><strong>{title}</strong> added to your basket.</p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="success" onClick={handleCloseConfirmation}>
-              OK
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
+    {showConfirmation && (
+      <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered role="alertdialog" aria-labelledby="confirmation-title">
+        <Modal.Header closeButton>
+          <Modal.Title>Item Added</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p><strong>{title} x{quantity}</strong> added to your basket.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={handleCloseConfirmation}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    )}
 
       <div id="basket-count" aria-live="polite" className="sr-only"></div>
     </>

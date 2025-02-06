@@ -132,6 +132,7 @@ body {
 
 .about-container {
   width: 90%;
+  height: 100%;
   max-width: 900px;
   margin: 50px auto;
   text-align: center;
@@ -190,6 +191,20 @@ body {
   font-size: 0.9rem;
 }
 
+/* Media query for screen width below 600px */
+@media (max-width: 600px) {
+  .about-stats {
+    flex-direction: column;  /* Stack items vertically */
+    align-items: center;     /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+  }
+
+  .stat-box {
+    width: 80%;   /* Make each stat box take up more space on small screens */
+    margin-bottom: 20px; /* Add some spacing between the stacked stat boxes */
+  }
+}
+
 .ts-icon {
   width: 64px;
   height: 64px;
@@ -219,3 +234,4 @@ span {
   color: #333;
   font-weight: normal;
 }
+

@@ -13,7 +13,10 @@
 }
 
 .card-body {
-  height: 100%;
+  display: flex; /* Enable Flexbox */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Distribute space, pushing the button to the bottom */
+  height: 100%; /* Ensure the body takes up the full height of the card */
   margin: 20px 0px 30px 0px;
   text-align: start;
   padding-right: 3rem !important;
@@ -42,14 +45,8 @@
   }
 }
 
-
-@media (min-width: 768px) and (max-width: 991px){
-  .col-md-3{
-    width: 50%!important;
+@media (min-width: 768px) and (max-width: 991px) {
+  .col-md-3 {
+    width: 50% !important;
   }
-
-}
-
-#quantity{
-  width: 100%;
 }

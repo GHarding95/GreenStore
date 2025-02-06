@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faArrowLeft, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faArrowLeft, faPlus, faMinus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface BasketItem {
@@ -92,24 +92,36 @@ const Basket: React.FC = () => {
                       <h5 className="card-title">{item.title}</h5>
                       <p className="card-text text-muted">{item.text}</p>
                       <p className="fw-bold">Price: ${item.price} {item.currency}</p>
-                      <div className="quantity-container d-flex align-items-center">
+                      <div className="quantity-container d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center">
+                          <Button
+                            variant="outline-success"
+                            className="btn-sm me-2"
+                            onClick={() => handleDecreaseQuantity(item)}
+                          >
+                            <FontAwesomeIcon icon={faMinus} />
+                          </Button>
+                          <span className="fw-bold">{item.quantity}</span>
+                          <Button
+                            variant="outline-success"
+                            className="btn-sm ms-2"
+                            onClick={() => handleIncreaseQuantity(item)}
+                            disabled={item.quantity >= MAX_QUANTITY}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                          </Button>
+                        </div>
                         <Button
-                          variant="outline-success"
-                          className="btn-sm me-2"
-                          onClick={() => handleDecreaseQuantity(item)}
+                          variant="outline-danger"
+                          className="btn-sm ms-auto"
+                          onClick={() => handleRemoveItem(item)}
                         >
-                          <FontAwesomeIcon icon={faMinus} />
-                        </Button>
-                        <span className="fw-bold">{item.quantity}</span>
-                        <Button
-                          variant="outline-success"
-                          className="btn-sm ms-2"
-                          onClick={() => handleIncreaseQuantity(item)}
-                          disabled={item.quantity >= MAX_QUANTITY}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
+                          <FontAwesomeIcon icon={faTrash} />
                         </Button>
                       </div>
+
+
+
                     </div>
                   </div>
                 </div>

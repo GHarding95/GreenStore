@@ -97,10 +97,13 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
           <Card.Title as="h4">{title}</Card.Title>
           <Card.Text>{text}</Card.Text>
           <Card.Text className="fw-bold">Price: ${price} {currency}</Card.Text>
-          <Button variant="success" onClick={handleOpenModal} aria-label={`View details of ${title}`}>
-            View Details
-          </Button>
+          <div className="mt-auto">
+            <Button variant="success" onClick={handleOpenModal} aria-label={`View details of ${title}`}>
+              View Details
+            </Button>
+          </div>
         </Card.Body>
+
       </Card>
 
       {showModal && (

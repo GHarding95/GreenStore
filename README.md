@@ -1,8 +1,6 @@
 # E-Commerce Website - GreenStore
 
-Mobile responsive E-Commerce store built with React JS & Typescript
-
-Browse and add products to the basket, edit/update quantities & remove items - checkout button is for show
+A fully responsive e-commerce store built with React JS and TypeScript. Users can browse products, add them to the basket, update quantities, and remove items. The checkout button is for demonstration purposes.
 
 ## Pages
 
@@ -12,18 +10,24 @@ Browse and add products to the basket, edit/update quantities & remove items - c
 - Basket
 
 ## Tech Stack
-
-- VS Code
-- React JS
-- Typescript
+- React JS (TypeScript)
+- React Router
+- React Context
 - React Bootstrap
 - Font Awesome
-- React Router
-- React Context 
-- Local storage
-- Affinity Designer (to create logo & favicon)
 - Mock.Shop Products API
+- Local Storage
 - Vitest + React Testing Library
+- VS Code
+- Affinity Designer
+
+## Key Features
+
+- Mobile responsive design
+- Lazy loading for improved performance
+- WCAG best practices & screen reader accessible
+- Persistent basket state using local storage
+- Products fetched from Mock.Shop API
 
 ## Getting Started
 

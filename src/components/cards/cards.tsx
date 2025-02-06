@@ -84,12 +84,13 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
       handleRemoveItem();
     }
   };
-
+  
   const handleRemoveItem = () => {
     const existingCartItems: CartItem[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
     const updatedCartItems = existingCartItems.filter((cartItem) => cartItem.title !== title);
-
-    updateLocalStorage(updatedCartItems);
+  
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    window.dispatchEvent(new Event('storage')); // Dispatch the storage event
     setShowModal(false);
   };
 

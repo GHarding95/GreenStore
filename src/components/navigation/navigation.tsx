@@ -30,10 +30,10 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
       const totalCount = existingCartItems.reduce((total: number, cartItem: { quantity: number }) => total + cartItem.quantity, 0);
       setCount(totalCount);
     };
-
+  
     updateCartCount();
     window.addEventListener('storage', updateCartCount);
-
+  
     return () => {
       window.removeEventListener('storage', updateCartCount);
     };

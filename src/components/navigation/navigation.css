@@ -50,7 +50,6 @@
   right: 0;
   z-index: 1;
   background-color: rgba(211, 211, 211, 0.8);
-  /* background-color: rgba(211, 211, 211, 0.8); */
 }
 
 .td-n {
@@ -115,7 +114,7 @@
 
 }
 
-/* Rest of your existing mobile menu styles */
+/* mobile menu styles */
 .mobile-menu {
   position: fixed;
   top: 0;

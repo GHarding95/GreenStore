@@ -106,6 +106,8 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
 
       </Card>
 
+{/* Item details Modal */}
+
       {showModal && (
         <Modal show={showModal} onHide={handleCloseModal} role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
           <Modal.Header closeButton>
@@ -125,7 +127,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
                     <Button variant="outline-success" className="btn-sm" onClick={handleDecreaseQuantity} disabled={quantity === 1}>
                       <FontAwesomeIcon icon={faMinus} />
                     </Button>
-                    <span className="quantity-display mx-2"><strong>{quantity}</strong></span> {/* Quantity displayed here */}
+                    <span className="quantity-display mx-2"><strong>{quantity}</strong></span>
                     <Button variant="outline-success" className="btn-sm" onClick={handleIncreaseQuantity} disabled={quantity >= 99}>
                       <FontAwesomeIcon icon={faPlus} />
                     </Button>
@@ -136,6 +138,8 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
           </Modal.Body>
         </Modal>
       )}
+
+{/* Confirmation Modal */}
 
     {showConfirmation && (
       <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered role="alertdialog" aria-labelledby="confirmation-title">

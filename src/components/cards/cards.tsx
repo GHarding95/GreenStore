@@ -44,17 +44,30 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
 
   const handleAddToCart = useCallback(() => {
     const item = { imageSrc, title, text, price, currency, quantity };
-    setCards((prevCards: ProductCard[]) => [...prevCards, item]);
-
-    const existingCartItems: CartItem[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  
+    setCards((prevCards: ProductCard[]) => {
+      const existingItemIndex = prevCards.findIndex((card) => card.title === item.title);
+  
+      if (existingItemIndex !== -1) {
+        // If the item already exists in the basket, update its quantity
+        const updatedCards = [...prevCards];
+        updatedCards[existingItemIndex].quantity += item.quantity;
+        return updatedCards;
+      } else {
+        // If the item does not exist in the basket, add it
+        return [...prevCards, item];
+      }
+    });
+  
+    const existingCartItems: ProductCard[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
     const updatedCartItems = existingCartItems.map((cartItem) =>
       cartItem.title === item.title ? { ...cartItem, quantity: cartItem.quantity + item.quantity } : cartItem
     );
-
+  
     if (!existingCartItems.some((cartItem) => cartItem.title === item.title)) {
       updatedCartItems.push(item);
     }
-
+  
     updateLocalStorage(updatedCartItems);
     setShowModal(false);
     setShowConfirmation(true);

@@ -195,3 +195,27 @@ body {
   height: 64px;
   object-fit: contain;
 }
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007b3e;
+  transition: all 0.3s ease;
+}
+
+span {
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  font-weight: normal;
+}

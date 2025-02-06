@@ -122,7 +122,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
                     <Button variant="outline-success" className="btn-sm" onClick={handleDecreaseQuantity} disabled={quantity === 1}>
                       <FontAwesomeIcon icon={faMinus} />
                     </Button>
-                    <span className="quantity-display mx-3"><strong>{quantity}</strong></span> {/* Quantity displayed here */}
+                    <span className="quantity-display mx-2"><strong>{quantity}</strong></span> {/* Quantity displayed here */}
                     <Button variant="outline-success" className="btn-sm" onClick={handleIncreaseQuantity} disabled={quantity >= 99}>
                       <FontAwesomeIcon icon={faPlus} />
                     </Button>

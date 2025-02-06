@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import 'typeface-poppins';
 import Navigation from './components/navigation/navigation';
 import Footer from './components/footer/footer';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './navigation.css';
+import './navigation.scss';
 import logo from '../../assets/greenstore_logo.png';
 import cart from '../../assets/cart.svg';
 import { Image } from 'react-bootstrap';

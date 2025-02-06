@@ -1,0 +1,160 @@
+// Navigation Container
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  .nav-left {
+    flex: 1;
+
+    .logo-container {
+      display: block;
+
+      .responsive-logo {
+        width: 180px;
+        height: auto;
+        transition: width 0.3s ease;
+
+        @media (max-width: 400px) {
+          width: 155px;
+        }
+      }
+    }
+  }
+
+  .nav-middle {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 991px) {
+      display: none;
+    }
+  }
+
+  .nav-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 991px) {
+      gap: 0.5rem;
+
+      .basket-wrapper {
+        order: -1;
+      }
+    }
+
+    .basket-wrapper {
+      justify-content: center;
+      display: flex !important;
+      text-decoration: none;
+      padding-right: 10px !important;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .count-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .basket-count {
+        line-height: normal !important;
+        font-size: 15px;
+        font-weight: 600;
+        color: #198754;
+        margin-bottom: -21px;
+        margin-left: 8px;
+        z-index: 1;
+      }
+
+      .minibasket {
+        color: rgb(25, 135, 84);
+        line-height: normal;
+        width: 45px;
+
+        &:hover {
+          color: rgb(0, 84, 0);
+        }
+      }
+    }
+  }
+
+  .mobile-toggle {
+    display: none;
+
+    @media (max-width: 991px) {
+      display: block;
+    }
+  }
+}
+
+// Sticky Navbar
+.navbar-top {
+  position: sticky !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(211, 211, 211, 0.8);
+}
+
+// Utility Classes
+.td-n {
+  text-decoration: none !important;
+}
+
+// Mobile Menu Styles
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 999;
+  transition: right 0.3s ease-in-out;
+
+  &.open {
+    right: 0;
+  }
+
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    a {
+      font-size: 1.5rem;
+      margin: 10px;
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  .close-mobile-menu {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    font-size: 42px;
+    color: rgb(25, 135, 84);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+// Active Nav Link
+.nav-link.active {
+  color: rgb(25, 135, 84) !important;
+  font-weight: 600;
+}

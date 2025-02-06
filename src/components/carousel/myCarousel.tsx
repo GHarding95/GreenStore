@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHtml5,
-  faCss3,
+  faSass,
   faBootstrap,
   faReact,
   faFontAwesome,
@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import tsLogo from '../../assets/ts-logo.png'; 
 import { Container, Carousel } from 'react-bootstrap';
-import './myCarousel.css';
+import './myCarousel.scss';
 
 interface Icon {
   icon: IconDefinition | string;
@@ -23,7 +23,7 @@ interface Icon {
 
 const iconData: Icon[] = [
   { icon: faHtml5, name: 'HTML5', color: '#e34c26', type: 'fa' },
-  { icon: faCss3, name: 'CSS3', color: '#2965f1', type: 'fa' },
+  { icon: faSass, name: 'SCSS', color: '#CF649A', type: 'fa' },
   { icon: faReact, name: 'React JS', color: '#61dafb', type: 'fa' },
   { icon: tsLogo, name: 'TypeScript', color: '#007aac', type: 'img' },
   { icon: faBootstrap, name: 'Bootstrap', color: '#563d7c', type: 'fa' },

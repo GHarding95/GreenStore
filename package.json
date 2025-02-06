@@ -17,6 +17,7 @@
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
     "react-use-cart": "^1.13.0",
+    "sass": "^1.84.0",
     "typeface-poppins": "^1.1.13",
     "web-vitals": "^2.1.4"
   },

@@ -1,0 +1,268 @@
+// Variables
+:root {
+  --green-primary: rgb(25, 135, 84);
+  --green-light: rgba(25, 135, 84, 0.1);
+  --green-dark: rgb(20, 105, 65);
+  --text-dark: #2c3e50;
+  --text-light: #6c757d;
+}
+
+// Global Styles
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+
+  // Hide scrollbar for all browsers
+  -ms-overflow-style: none; // IE, Edge
+  scrollbar-width: none; // Firefox
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome, Safari, Opera
+  }
+}
+
+// App Component
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  caret-color: transparent !important;
+}
+
+// Modal Styles
+.modal-body {
+  > p {
+    padding-top: 15px;
+    text-align: start;
+  }
+
+  > div {
+    text-align: start;
+  }
+}
+
+// Basket Image
+.basket-img {
+  &:hover {
+    transform: scale(1) !important;
+    cursor: auto !important;
+  }
+}
+
+// Home Page
+.home-container {
+  background-image: url('./assets/landscape.webp'), linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+  background-position: center;
+  background-size: cover;
+  height: 82vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  z-index: 0;
+  margin-top: -80px;
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 300;
+  }
+
+  @media (max-width: 991px) {
+    height: 60vh;
+  }
+
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 3rem !important;
+    }
+  }
+}
+
+// Utility Classes
+.p-7 {
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+}
+
+.icon {
+  padding: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.basket-btn {
+  width: 300px;
+}
+
+// Cards and Grid Layout
+@media (min-width: 768px) and (max-width: 992px) {
+  .card > .row > .col-md-3 {
+    width: 50% !important;
+  }
+
+  .card > .row > .col-md-8 {
+    width: 100% !important;
+  }
+
+  .card > .row {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1400px) {
+  .card > .row > .col-md-3 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+}
+
+// Quantity Buttons and Container
+.quantity-btns {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0 5px 10px;
+}
+
+.quantity-container {
+  display: flex;
+
+  @media (max-width: 450px) {
+    display: block !important;
+
+    .quantity-btns {
+      justify-content: center;
+      padding-top: 20px;
+    }
+  }
+}
+
+// About Page
+.about-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 50px auto;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: var(--text-dark);
+
+  .about-banner {
+    background: var(--green-primary);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .about-content {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--green-light);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+  }
+
+  .about-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .stat-box {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .stat-box {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    h3 {
+      color: var(--green-dark);
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// TypeScript Icon
+.ts-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+// Stats Section
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+
+  .stat {
+    text-align: center;
+
+    .number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #007b3e;
+      transition: all 0.3s ease;
+    }
+
+    span {
+      display: block;
+      font-size: 1rem;
+      color: #333;
+      font-weight: normal;
+    }
+  }
+}
+
+// Form Inputs
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 2px solid #198754;
+}
+
+.form-control:focus {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #198754 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+}
+
+// Close Button
+.btn-close {
+  &:hover, &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+  }
+}

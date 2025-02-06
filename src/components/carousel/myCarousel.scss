@@ -1,0 +1,57 @@
+// Carousel Controls
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  color: rgb(25, 135, 84) !important;
+  text-decoration: none;
+
+  &:hover {
+    color: rgb(25, 135, 84) !important;
+    text-decoration: none;
+  }
+}
+
+// Bounce Animation
+.fa-bounce {
+  animation: fa-bounce 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+// Carousel Inner Container
+.carousel-inner {
+  width: 80% !important;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 100% !important;
+  }
+}
+
+// Icons Wrapper
+.icons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    .icon {
+      flex-basis: 50%;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    flex-wrap: wrap;
+
+    .icon {
+      flex: 50%;
+    }
+  }
+}
+
+// Icon Styles
+.icon {
+  flex: 100%;
+
+  @media (max-width: 1200px) {
+    flex: 50%;
+  }
+}

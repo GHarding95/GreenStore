@@ -8,7 +8,7 @@ describe('MyCarousel', () => {
     
     // Test for presence of icons in first slide
     expect(screen.getByText('HTML5')).toBeInTheDocument();
-    expect(screen.getByText('CSS3')).toBeInTheDocument();
+    expect(screen.getByText('SCSS')).toBeInTheDocument();
     expect(screen.getByText('React JS')).toBeInTheDocument();
     expect(screen.getByText('TypeScript')).toBeInTheDocument();
   });

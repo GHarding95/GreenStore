@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faArrowLeft, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface BasketItem {
@@ -26,69 +26,6 @@ const Basket: React.FC = () => {
     }
   }, []);
 
-  const handleRemoveItem = (item: BasketItem) => {
-    const updatedItems = savedItems.filter((basketItem) => basketItem.title !== item.title);
-    setSavedItems(updatedItems);
-
-    localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-
-    const totalCount = updatedItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-    const countElement = document.getElementById('basket-count');
-    if (countElement) {
-      countElement.textContent = totalCount.toString();
-    }
-  };
-
-  const handleQuantityChange = (item: BasketItem, event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-  
-    if (value === "") {
-      updateQuantity(item, 1); // Set to minimum value when empty
-      return;
-    }
-  
-    const newQuantity = parseInt(value, 10);
-  
-    if (!isNaN(newQuantity)) {
-      if (newQuantity >= 1 && newQuantity <= MAX_QUANTITY) {
-        updateQuantity(item, newQuantity);
-      } else if (newQuantity > MAX_QUANTITY) {
-        updateQuantity(item, MAX_QUANTITY);
-      }
-    }
-  };
-  
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    // Allow: backspace, delete, tab, escape, enter, decimal, and arrow keys
-    if (
-      event.key === 'Backspace' ||
-      event.key === 'Delete' ||
-      event.key === 'Tab' ||
-      event.key === 'Escape' ||
-      event.key === 'Enter' ||
-      event.key === '.' ||
-      event.key === 'ArrowLeft' ||
-      event.key === 'ArrowRight' ||
-      event.key === 'ArrowUp' ||
-      event.key === 'ArrowDown'
-    ) {
-      // Check if it's an arrow up and current value is at max
-      if (event.key === 'ArrowUp') {
-        const currentValue = parseInt((event.target as HTMLInputElement).value, 10);
-        if (currentValue >= MAX_QUANTITY) {
-          event.preventDefault();
-        }
-      }
-      return;
-    }
-
-    // Prevent non-numeric keys
-    if (!/[0-9]/.test(event.key)) {
-      event.preventDefault();
-    }
-  };
-
   const updateQuantity = (item: BasketItem, newQuantity: number) => {
     const updatedItems = savedItems.map((savedItem) =>
       savedItem.title === item.title ? { ...savedItem, quantity: newQuantity } : savedItem
@@ -96,7 +33,27 @@ const Basket: React.FC = () => {
 
     setSavedItems(updatedItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+    window.dispatchEvent(new Event('storage'));
+  };
 
+  const handleIncreaseQuantity = (item: BasketItem) => {
+    if (item.quantity < MAX_QUANTITY) {
+      updateQuantity(item, item.quantity + 1);
+    }
+  };
+
+  const handleDecreaseQuantity = (item: BasketItem) => {
+    if (item.quantity > 1) {
+      updateQuantity(item, item.quantity - 1);
+    } else {
+      handleRemoveItem(item);
+    }
+  };
+
+  const handleRemoveItem = (item: BasketItem) => {
+    const updatedItems = savedItems.filter((basketItem) => basketItem.title !== item.title);
+    setSavedItems(updatedItems);
+    localStorage.setItem('cartItems', JSON.stringify(updatedItems));
     window.dispatchEvent(new Event('storage'));
   };
 
@@ -135,33 +92,23 @@ const Basket: React.FC = () => {
                       <h5 className="card-title">{item.title}</h5>
                       <p className="card-text text-muted">{item.text}</p>
                       <p className="fw-bold">Price: ${item.price} {item.currency}</p>
-                      <div className="quantity-container">
-                        <div>
-                          <p className="card-text fw-bold mt-3">
-                            Quantity:
-                            <input
-                              type="number"
-                              className="form-control"
-                              value={item.quantity}
-                              onChange={(event) => handleQuantityChange(item, event)}
-                              onKeyDown={handleKeyDown}
-                              min="1"
-                              max={MAX_QUANTITY}
-                              step="1"
-                              aria-label={`Quantity of ${item.title}`}
-                            />
-                          </p>
-                        </div>
-                        <div className="quantity-btns">
-                          <Button
-                            className="btn-sm"
-                            variant="danger"
-                            onClick={() => handleRemoveItem(item)}
-                            aria-label={`Remove ${item.title} from basket`}
-                          >
-                            Remove
-                          </Button>
-                        </div>
+                      <div className="quantity-container d-flex align-items-center">
+                        <Button
+                          variant="outline-success"
+                          className="btn-sm me-2"
+                          onClick={() => handleDecreaseQuantity(item)}
+                        >
+                          <FontAwesomeIcon icon={faMinus} />
+                        </Button>
+                        <span className="fw-bold">{item.quantity}</span>
+                        <Button
+                          variant="outline-success"
+                          className="btn-sm ms-2"
+                          onClick={() => handleIncreaseQuantity(item)}
+                          disabled={item.quantity >= MAX_QUANTITY}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -193,11 +140,7 @@ const Basket: React.FC = () => {
       {!basketIsEmpty && (
         <div className="text-center mt-4">
           <h4>
-            Total: $
-            {savedItems
-              .reduce((total, item) => total + item.price * item.quantity, 0)
-              .toFixed(2)}{' '}
-            {savedItems[0]?.currency}
+            Total: ${savedItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)} {savedItems[0]?.currency}
           </h4>
         </div>
       )}

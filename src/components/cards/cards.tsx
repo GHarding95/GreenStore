@@ -3,6 +3,8 @@ import { Card, Button, Modal } from 'react-bootstrap';
 import BasketContext from '../../hooks/basketContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import '../cards/cards.css';
 import { ProductCard } from '../../types';
 
@@ -33,12 +35,12 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
   const handleOpenModal = useCallback(() => setShowModal(true), []);
   const handleCloseConfirmation = useCallback(() => setShowConfirmation(false), []);
 
-  const handleQuantityChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    let value = parseInt(event.target.value, 10);
-    if (isNaN(value) || value < 1) value = 1;
-    else if (value > 99) value = 99;
-    setQuantity(value);
-  }, []);
+  const updateLocalStorage = (updatedCartItems: CartItem[]) => {
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    const totalCount = updatedCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+    const countElement = document.getElementById('basket-count');
+    if (countElement) countElement.textContent = totalCount.toString();
+  };
 
   const handleAddToCart = useCallback(() => {
     const item = { imageSrc, title, text, price, currency, quantity };
@@ -53,14 +55,30 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
       updatedCartItems.push(item);
     }
 
-    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-    const totalCount = updatedCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-    const countElement = document.getElementById('basket-count');
-    if (countElement) countElement.textContent = totalCount.toString();
-
+    updateLocalStorage(updatedCartItems);
     setShowModal(false);
     setShowConfirmation(true);
   }, [setCards, imageSrc, title, text, price, currency, quantity]);
+
+  const handleIncreaseQuantity = () => {
+    if (quantity < 99) setQuantity(quantity + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    } else {
+      handleRemoveItem();
+    }
+  };
+
+  const handleRemoveItem = () => {
+    const existingCartItems: CartItem[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    const updatedCartItems = existingCartItems.filter((cartItem) => cartItem.title !== title);
+
+    updateLocalStorage(updatedCartItems);
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -73,7 +91,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
           onClick={handleOpenModal}
           alt={title}
           effect="blur"
-          loading="lazy" // Changed to lazy for better performance
+          loading="lazy"
         />
         <Card.Body className="card-body">
           <Card.Title as="h4">{title}</Card.Title>
@@ -96,20 +114,19 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
             <p><strong>Price: ${price} {currency}</strong></p>
             <Modal.Footer>
               <div className="d-flex justify-content-between align-items-center">
-                <div className='d-flex'>
-                  <Button variant="success" onClick={handleAddToCart}>
+                <div className="d-flex">
+                  <Button variant="success" onClick={handleAddToCart} className="custom-add-to-basket-btn" aria-label={`Add ${title} to basket`}>
                     Add to Basket
                   </Button>
-                  <input
-                    type="number"
-                    className="card-input"
-                    value={quantity}
-                    min="1"
-                    max="99"
-                    onChange={handleQuantityChange}
-                    aria-label="Quantity"
-                    style={{ width: '70px', marginLeft: '10px' }}
-                  />
+                  <div className="d-flex align-items-center ms-3">
+                    <Button variant="outline-success" className="btn-sm" onClick={handleDecreaseQuantity} disabled={quantity === 1}>
+                      <FontAwesomeIcon icon={faMinus} />
+                    </Button>
+                    <span className="quantity-display mx-3"><strong>{quantity}</strong></span> {/* Quantity displayed here */}
+                    <Button variant="outline-success" className="btn-sm" onClick={handleIncreaseQuantity} disabled={quantity >= 99}>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Modal.Footer>

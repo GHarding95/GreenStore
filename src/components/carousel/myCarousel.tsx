@@ -27,8 +27,8 @@ const iconData: Icon[] = [
   { icon: faReact, name: 'React JS', color: '#61dafb', type: 'fa' },
   { icon: tsLogo, name: 'TypeScript', color: '#007aac', type: 'img' },
   { icon: faBootstrap, name: 'Bootstrap', color: '#563d7c', type: 'fa' },
-  { icon: faGithub, name: 'Github', color: '#000000', type: 'fa' },
   { icon: faFontAwesome, name: 'Font Awesome', color: '#183153', type: 'fa' },
+  { icon: faGithub, name: 'Github', color: '#000000', type: 'fa' },
   { icon: faGoogle, name: 'Google', color: '#DB4437', type: 'fa' },
 ];
 

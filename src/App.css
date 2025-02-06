@@ -255,3 +255,7 @@ input[type="text"] {
     margin-bottom: 20px;
   }
 }
+
+.btn-close:hover, .btn-close:focus {
+  box-shadow: 0 0 0 .25rem rgba(25, 135, 84, .25)!important;
+}

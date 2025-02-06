@@ -55,7 +55,7 @@ html, body {
   background-image: url('./assets/landscape.webp'), linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
   background-position: center;
   background-size: cover;
-  height: 82vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -66,10 +66,6 @@ html, body {
   h1 {
     font-size: 4rem;
     font-weight: 300;
-  }
-
-  @media (max-width: 991px) {
-    height: 60vh;
   }
 
   @media (max-width: 400px) {
@@ -131,11 +127,13 @@ html, body {
 
   @media (max-width: 450px) {
     display: block !important;
+    padding-bottom: 20px;
 
     .quantity-btns {
       justify-content: center;
       padding-top: 20px;
     }
+
   }
 }
 
@@ -265,4 +263,12 @@ input[type="text"] {
   &:hover, &:focus {
     box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
   }
+}
+
+//Carousel
+
+.carousel-wrapper {
+  margin-top: 40px; 
+  margin-bottom: 40px; 
+  padding: 0;
 }

@@ -2,8 +2,13 @@
 footer {
   margin-top: auto;
 
+  .footer-background {
+    background-color: var(--green-primary);
+  }
+
   div {
     padding: 5px;
     color: #fff;
   }
 }
+

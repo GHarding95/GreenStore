@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer role="contentinfo">
-      <Navbar bg="success" expand='false'>
+      <Navbar className='footer-background' expand='false'>
         <Container className='d-inline'>     
           <div>
             &#169; {currentYear} Glen Harding

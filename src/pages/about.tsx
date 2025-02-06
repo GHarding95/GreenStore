@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import MyCarousel from '../components/carousel/myCarousel';
 
 const About: React.FC = () => {
   const [ecoProducts, setEcoProducts] = useState(0);
@@ -48,6 +49,10 @@ const About: React.FC = () => {
             <p>Happy customers</p>
           </div>
         </div>
+      </div>
+
+      <div className="carousel-wrapper">
+        <MyCarousel />
       </div>
     </div>
   );

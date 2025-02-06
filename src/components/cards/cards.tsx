@@ -96,7 +96,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
         <Card.Body className="card-body">
           <Card.Title as="h4">{title}</Card.Title>
           <Card.Text>{text}</Card.Text>
-          <Card.Text className="fw-bold">Price: ${price} {currency}</Card.Text>
+          <Card.Text className="fw-bold">${price} {currency}</Card.Text>
           <div className="mt-auto">
             <Button variant="success" onClick={handleOpenModal} aria-label={`View details of ${title}`}>
               View Details
@@ -114,7 +114,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
           <Modal.Body>
             <LazyLoadImage src={imageSrc} alt={title} style={{ maxWidth: '100%' }} effect="blur" />
             <p>{text}</p>
-            <p><strong>Price: ${price} {currency}</strong></p>
+            <p><strong>${price} {currency}</strong></p>
             <Modal.Footer>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex">

@@ -91,7 +91,7 @@ const Basket: React.FC = () => {
                     <div className="card-body">
                       <h5 className="card-title">{item.title}</h5>
                       <p className="card-text text-muted">{item.text}</p>
-                      <p className="fw-bold">Price: ${item.price} {item.currency}</p>
+                      <p className="fw-bold">${item.price} {item.currency}</p>
                       <div className="quantity-container d-flex justify-content-between align-items-center">
                         <div className="d-flex align-items-center">
                           <Button
@@ -131,6 +131,14 @@ const Basket: React.FC = () => {
         </>
       )}
 
+      {!basketIsEmpty && (
+        <div className="text-center mt-4">
+          <h4>
+            Total: ${savedItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)} {savedItems[0]?.currency}
+          </h4>
+        </div>
+      )}
+
       <div className="d-flex flex-column align-items-center">
         <div className="text-center mt-4 basket-btn">
           <Link to="/products">
@@ -148,14 +156,6 @@ const Basket: React.FC = () => {
           )}
         </div>
       </div>
-
-      {!basketIsEmpty && (
-        <div className="text-center mt-4">
-          <h4>
-            Total: ${savedItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)} {savedItems[0]?.currency}
-          </h4>
-        </div>
-      )}
 
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>

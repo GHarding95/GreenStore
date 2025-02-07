@@ -16,7 +16,7 @@
   - site.webmanifest
 - README.md
 - src
-  - App.css
+  - App.scss
   - App.tsx
   - assets
     - cart.svg
@@ -25,18 +25,18 @@
     - ts-logo.png
   - components
     - cards
-      - cards.css
+      - cards.scss
       - cards.tsx
     - carousel
-      - myCarousel.css
+      - myCarousel.scss
       - myCarousel.test.tsx
       - myCarousel.tsx
     - footer
-      - footer.css
+      - footer.scss
       - footer.test.tsx
       - footer.tsx
     - navigation
-      - navigation.css
+      - navigation.scss
       - navigation.tsx
   - declarations.d.ts
   - hooks

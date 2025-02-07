@@ -7,6 +7,14 @@ export default defineConfig({
   optimizeDeps: {
     include: ['mdb-react-ui-kit'],
   },
+  css: {
+    preprocessorOptions: {
+      sass: {
+        // This ensures that Vite uses the modern Sass API by default
+        api: 'modern', 
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

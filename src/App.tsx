@@ -10,6 +10,8 @@ import Basket from './pages/basket';
 import About from './pages/about';
 import useFetchData from './hooks/useFetchData';
 import BasketContext from './hooks/basketContext';
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const App: React.FC = () => {
   const { cards, setCards } = useFetchData();
@@ -40,6 +42,8 @@ const App: React.FC = () => {
           </>
         )}
       </BasketContext.Provider>
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 };

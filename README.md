@@ -26,7 +26,7 @@ A fully responsive e-commerce store built with React JS and TypeScript. Users ca
 - Mobile responsive design
 - Lazy loading for improved performance
 - WCAG best practices & screen reader accessible
-- Persistent basket state using local storage
+- Persistent basket state using React Context
 - Products fetched from Mock.Shop API
 
 ## Getting Started

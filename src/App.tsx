@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <BasketContext.Provider value={{ cards, setCards }}>
+      <BasketContext.Provider value={{ cards, setCards, basketCount: count, setBasketCount: setCount }}>
         {isInitialized && (
           <>
             <Navigation count={count} setCount={setCount} />
@@ -34,7 +34,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products setCount={setCount} />} />
               <Route path="/about" element={<About />} />
-              <Route path="/basket" element={<Basket />} />
+              <Route path="/basket" element={<Basket setCount={setCount} />} /> {/* Pass setCount here */}
             </Routes>
             <Footer />
           </>

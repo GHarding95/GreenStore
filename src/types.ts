@@ -7,7 +7,9 @@ export interface ProductCard { // Renamed from Card as it was conflicting with t
   quantity: number;
 }
 
-  export interface BasketContextType {
-    cards: ProductCard[];
-    setCards: React.Dispatch<React.SetStateAction<ProductCard[]>>;
-  }
+export interface BasketContextType {
+  cards: ProductCard[];
+  setCards: React.Dispatch<React.SetStateAction<ProductCard[]>>;
+  basketCount: number;
+  setBasketCount: React.Dispatch<React.SetStateAction<number>>;
+}

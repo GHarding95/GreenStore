@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,26 +14,38 @@ interface BasketItem {
   quantity: number;
 }
 
-const Basket: React.FC = () => {
+interface BasketProps {
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Basket: React.FC<BasketProps> = ({ setCount }) => {
   const [savedItems, setSavedItems] = useState<BasketItem[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const MAX_QUANTITY = 99;
 
+  // Memoize updateCartCount to avoid unnecessary re-renders
+  const updateCartCount = useCallback((items: BasketItem[]) => {
+    const totalCount = items.reduce((total, item) => total + item.quantity, 0);
+    setCount(totalCount);
+  }, [setCount]); // Add setCount as a dependency
+
   useEffect(() => {
     const storedItems = localStorage.getItem('cartItems');
     if (storedItems) {
-      setSavedItems(JSON.parse(storedItems));
+      const items = JSON.parse(storedItems);
+      setSavedItems(items);
+      // Update the count on load
+      updateCartCount(items);
     }
-  }, []);
+  }, [updateCartCount]); // Add updateCartCount to the dependency array
 
   const updateQuantity = (item: BasketItem, newQuantity: number) => {
     const updatedItems = savedItems.map((savedItem) =>
       savedItem.title === item.title ? { ...savedItem, quantity: newQuantity } : savedItem
     );
-
     setSavedItems(updatedItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-    window.dispatchEvent(new Event('storage'));
+    updateCartCount(updatedItems);
   };
 
   const handleIncreaseQuantity = (item: BasketItem) => {
@@ -54,7 +66,7 @@ const Basket: React.FC = () => {
     const updatedItems = savedItems.filter((basketItem) => basketItem.title !== item.title);
     setSavedItems(updatedItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-    window.dispatchEvent(new Event('storage'));
+    updateCartCount(updatedItems);
   };
 
   const handleCheckout = () => {
@@ -119,9 +131,6 @@ const Basket: React.FC = () => {
                           <FontAwesomeIcon icon={faTrash} />
                         </Button>
                       </div>
-
-
-
                     </div>
                   </div>
                 </div>

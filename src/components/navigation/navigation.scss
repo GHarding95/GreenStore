@@ -68,7 +68,7 @@
         line-height: normal !important;
         font-size: 15px;
         font-weight: 600;
-        color: #198754;
+        color: var(--green-primary);
         margin-bottom: -21px;
         margin-left: 8px;
         z-index: 1;
@@ -155,6 +155,6 @@
 
 // Active Nav Link
 .nav-link.active {
-  color: rgb(25, 135, 84) !important;
+  color: var(--green-primary)!important;
   font-weight: 600;
 }

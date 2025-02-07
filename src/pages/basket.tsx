@@ -70,8 +70,20 @@ const Basket: React.FC<BasketProps> = ({ setCount }) => {
   };
 
   const handleCheckout = () => {
+    console.log("Basket Contents:", savedItems.map(item => ({ 
+      title: item.title, 
+      quantity: item.quantity, 
+      price: item.price,
+      totalPrice: (item.price * item.quantity).toFixed(2) // Calculate total price per item
+    })));
+  
+    // Clear the basket
+    setSavedItems([]);
+    localStorage.removeItem('cartItems');
+    setCount(0);
+  
     setShowModal(true);
-  };
+  };  
 
   const handleClose = () => {
     setShowModal(false);

@@ -1,14 +1,15 @@
 // Footer Styles
 footer {
   margin-top: auto;
+  z-index: 1;
 
   .footer-background {
-    background-color: var(--green-primary);
+    background-color: rgba(211, 211, 211, 0.8);
   }
 
   div {
     padding: 5px;
-    color: #fff;
+    color: #000;
   }
 }
 

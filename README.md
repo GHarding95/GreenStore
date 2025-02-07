@@ -1,6 +1,6 @@
 # E-Commerce Website - GreenStore
 
-A fully responsive e-commerce store built with React JS and TypeScript. Users can browse products, add them to the basket, update quantities, and remove items. The checkout button is for demonstration purposes.
+A fully responsive e-commerce store built with React JS and TypeScript. Users can browse and search products, add them to the basket, update quantities, and remove items. The checkout button logs the basket contents to the console and clears the basket.
 
 ## Pages
 

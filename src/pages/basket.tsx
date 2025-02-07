@@ -100,7 +100,7 @@ const Basket: React.FC<BasketProps> = ({ setCount }) => {
                     />
                   </div>
                   <div className="col-md-8">
-                    <div className="card-body">
+                    <div className="card-body basket-card-body">
                       <h5 className="card-title">{item.title}</h5>
                       <p className="card-text text-muted">{item.text}</p>
                       <p className="fw-bold">${item.price} {item.currency}</p>

@@ -42,7 +42,12 @@ html, body {
   }
 }
 
-// Basket Image
+// Basket Styles
+
+.basket-card-body{
+  text-align: left;
+}
+
 .basket-img {
   &:hover {
     transform: scale(1) !important;

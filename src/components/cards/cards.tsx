@@ -112,7 +112,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
           <Card.Text>{text}</Card.Text>
           <Card.Text className="fw-bold">${price} {currency}</Card.Text>
           <div className="mt-auto">
-            <Button variant="success" onClick={handleOpenModal} aria-label={`View details of ${title}`}>
+            <Button variant="success" className='product-btn' onClick={handleOpenModal} aria-label={`View details of ${title}`}>
               View Details
             </Button>
           </div>

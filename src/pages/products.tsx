@@ -38,7 +38,7 @@ const Products: React.FC<ProductsProps> = ({ setCount }) => {
       </Row>
 
       {/* Display the cards */}
-      <Row>
+      <Row xs={2} md={4} className="g-2">
         {filteredCards.map((card, index) => (
           <Col key={index} md={3}>
             <Cards

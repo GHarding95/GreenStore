@@ -16,6 +16,21 @@
     object-fit: cover;
     aspect-ratio: 1/1;
     cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+    
+    // Lazy loading states
+    &[data-src] {
+      opacity: 0.7;
+    }
+    
+    &.lazy-load-image-loaded {
+      opacity: 1;
+    }
+    
+    &.lazy-load-image-error {
+      opacity: 0.8;
+      background-color: #f8f9fa;
+    }
   }
   
   .card-body {
@@ -145,6 +160,27 @@
   }
 }
 
+// Modal image container - ensures consistent modal size
+.modal-image-container {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  
+  img {
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: opacity 0.3s ease-in-out;
+  }
+}
+
 // Modal adjustments for mobile
 @media (max-width: 767px) {
   .modal {
@@ -168,6 +204,24 @@
       .quantity-display {
         font-size: 0.875rem;
       }
+    }
+    
+    .modal-image-container {
+      min-height: 250px; // Slightly smaller on mobile
+      
+      img {
+        max-height: 300px; // Allow taller images on mobile
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-image-container {
+    min-height: 200px; // Even smaller on very small screens
+    
+    img {
+      max-height: 250px; // Allow taller images on very small screens
     }
   }
 }

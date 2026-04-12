@@ -232,7 +232,7 @@ const Basket: React.FC<BasketProps> = ({ setCount }) => {
           <p className="mb-0">We appreciate your purchase!</p>
         </Modal.Body>
         <Modal.Footer className="basket-page__modal-footer">
-          <Button variant="secondary" className="basket-page__modal-close" onClick={handleCloseCheckoutModal}>
+          <Button variant="success" className="basket-page__modal-close basket-page__modal-close--primary" onClick={handleCloseCheckoutModal}>
             Close
           </Button>
         </Modal.Footer>

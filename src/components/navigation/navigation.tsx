@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './navigation.scss';
 import logo from '../../assets/greenstore_logo.png';
 import cart from '../../assets/cart.svg';
@@ -26,6 +26,7 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
   const { basketCount, setBasketCount } = useContext(BasketContext);
   const [showNavText, setShowNavText] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const mobileCloseRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const updateCartCount = () => {
@@ -44,8 +45,18 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
 
   const toggleMobileMenu = () => {
     setShowNavText(false);
-    setMobileMenuOpen(!mobileMenuOpen);
+    setMobileMenuOpen((open) => !open);
   };
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    mobileCloseRef.current?.focus();
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
 
   return (
     <div>
@@ -82,7 +93,7 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
           <div className='nav-right'>
             <NavLink className='basket-wrapper nav-link' to='/basket' aria-label="View basket">
               <span className='count-wrapper'>
-                <span id='basket-count' className='basket-count'>
+                <span id="basket-count" className="basket-count" aria-live="polite" aria-atomic="true">
                   {basketCount}
                 </span>
                 <img src={cart} className='minibasket' alt='shopping cart' />
@@ -92,9 +103,9 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
             <MDBNavbarToggler
               type='button'
               className='mobile-toggle'
-              aria-controls='navbarText'
-              aria-expanded='false'
-              aria-label='Toggle navigation'
+              aria-controls='mobile-navigation-dialog'
+              aria-expanded={mobileMenuOpen}
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               onClick={toggleMobileMenu}
             >
               {mobileMenuOpen ? (
@@ -107,11 +118,24 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
         </MDBContainer>
       </MDBNavbar>
 
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-label="mobile-menu">
-        <div className='mobile-links'>
-          <div className='close-mobile-menu' onClick={toggleMobileMenu}>
-            <FontAwesomeIcon icon={faTimes} />
-          </div>
+      <div
+        id="mobile-navigation-dialog"
+        className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+        aria-hidden={!mobileMenuOpen}
+      >
+        <div className="mobile-links">
+          <button
+            ref={mobileCloseRef}
+            type="button"
+            className="close-mobile-menu"
+            aria-label="Close menu"
+            onClick={toggleMobileMenu}
+          >
+            <FontAwesomeIcon icon={faTimes} aria-hidden />
+          </button>
           <NavLink className='nav-link' to='/' onClick={toggleMobileMenu}>
             Home
           </NavLink>

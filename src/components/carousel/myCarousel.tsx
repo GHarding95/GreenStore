@@ -10,7 +10,8 @@ import {
   faGoogle,
   IconDefinition,
 } from '@fortawesome/free-brands-svg-icons';
-import tsLogo from '../../assets/ts-logo.png'; 
+import tsLogo from '../../assets/ts-logo.png';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Container, Carousel } from 'react-bootstrap';
 import './myCarousel.scss';
 
@@ -44,7 +45,22 @@ const MyCarousel: React.FC = () => {
     const secondSlideIcons = iconData.slice(4);
 
     return (
-      <Carousel indicators={false}>
+      <Carousel
+        indicators={false}
+        interval={null}
+        prevLabel="Previous slide, technologies"
+        nextLabel="Next slide, technologies"
+        prevIcon={
+          <span className="carousel-btn__icon" aria-hidden>
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </span>
+        }
+        nextIcon={
+          <span className="carousel-btn__icon" aria-hidden>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </span>
+        }
+      >
         {[firstSlideIcons, secondSlideIcons].map((slideIcons, index) => (
           <Carousel.Item key={index}>
             <div className="icons-wrapper">

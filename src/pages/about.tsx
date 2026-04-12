@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MyCarousel from '../components/carousel/myCarousel';
+import './about.scss';
 
 const About: React.FC = () => {
   const [ecoProducts, setEcoProducts] = useState(0);
@@ -25,35 +26,49 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <div className="about-container" role="main">
-      <div className="about-banner">
+    <div className="about-page">
+      <header className="about-page__masthead">
+        <p className="about-page__eyebrow">Portfolio project</p>
         <h1>About GreenStore</h1>
-      </div>
-      <div className="about-content">
+      </header>
+
+      <section className="about-page__story" aria-labelledby="about-intro-title">
+        <h2 id="about-intro-title" className="visually-hidden">
+          About this project
+        </h2>
         <p>
-          Welcome to <strong>GreenStore!</strong> This is a mock e-commerce website created as part of my web development portfolio. 
-          Built with React JS and TypeScript, it features a fully mobile-responsive design while ensuring accessibility with WCAG best practices. Users can browse products, 
+          Welcome to <strong>GreenStore!</strong> This is a mock e-commerce website created as part of my web development portfolio.
+          Built with React JS and TypeScript, it features a fully mobile-responsive design while ensuring accessibility with WCAG best practices. Users can browse products,
           manage their basket, and experience a seamless shopping interface.
         </p>
-        <div className="about-stats">
-          <div className="stat-box">
-            <h3>{ecoProducts}+ </h3>
-            <p>Eco-friendly products</p>
-          </div>
-          <div className="stat-box">
-            <h3>{sustainableSourcing}% </h3>
-            <p>Sustainable sourcing</p>
-          </div>
-          <div className="stat-box">
-            <h3>{happyCustomers}+ </h3>
-            <p>Happy customers</p>
-          </div>
-        </div>
-      </div>
+      </section>
 
-      <div className="carousel-wrapper">
-        <MyCarousel />
-      </div>
+      <section className="about-page__metrics" aria-label="Project highlights">
+        <ul className="about-page__metrics-list">
+          <li className="about-page__metric">
+            <span className="about-page__metric-value">{ecoProducts}+</span>
+            <span className="about-page__metric-label">Eco-friendly products</span>
+          </li>
+          <li className="about-page__metric">
+            <span className="about-page__metric-value">{sustainableSourcing}%</span>
+            <span className="about-page__metric-label">Sustainable sourcing</span>
+          </li>
+          <li className="about-page__metric">
+            <span className="about-page__metric-value">{happyCustomers}+</span>
+            <span className="about-page__metric-label">Happy customers</span>
+          </li>
+        </ul>
+      </section>
+
+      <section className="about-page__tech" aria-labelledby="about-tech-heading">
+        <h2 id="about-tech-heading">Tech stack</h2>
+        <p className="about-page__tech-lead">
+          Libraries and tools used to build this site.
+        </p>
+        <div className="about-page__carousel">
+          <MyCarousel />
+        </div>
+      </section>
     </div>
   );
 };

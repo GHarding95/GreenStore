@@ -1,9 +1,20 @@
+// One row: [prev] [slides] [next] — arrows align with the icon strip, not full viewport height
 .carousel {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: center;
-  margin-top: 20px; 
-  margin-bottom: 20px; 
+  column-gap: 0.5rem;
+  row-gap: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  position: relative;
+}
+
+.carousel-inner {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
 }
 
 .carousel-item {
@@ -15,39 +26,153 @@
 .icons-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
+  align-items: flex-start;
+  gap: 1.5rem;
   flex-wrap: wrap;
+  padding: 1.25rem 0;
 }
 
 .icon {
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform var(--motion-med);
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
 
   p {
-    margin-top: 10px;
-    font-size: 1rem;
+    margin-top: 0.65rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     color: var(--text-dark);
+    font-family: var(--font-display);
   }
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  color: var(--green-primary);
+.carousel-control-prev,
+.carousel-control-next {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  // Nudge up so chevrons line up with the icon row (labels sit below icons)
+  transform: translateY(-1.1rem);
+  z-index: 1;
+  width: auto;
+  height: auto;
+  min-width: 3rem;
+  min-height: 3rem;
+  flex: 0 0 auto;
+  align-self: center;
+  opacity: 1;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+
+  &:hover {
+    background: transparent !important;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--green-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
 }
 
-// Adjust layout for smaller screens
+.carousel-control-prev {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.carousel-control-next {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.carousel-btn__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-primary);
+  font-size: 2.05rem;
+  line-height: 1;
+  transition:
+    color var(--motion-fast),
+    transform var(--motion-fast);
+
+  svg {
+    display: block;
+  }
+}
+
+.carousel-control-prev:hover .carousel-btn__icon,
+.carousel-control-next:hover .carousel-btn__icon,
+.carousel-control-prev:focus-visible .carousel-btn__icon,
+.carousel-control-next:focus-visible .carousel-btn__icon {
+  color: var(--green-dark);
+  transform: scale(1.12);
+}
+
+.ts-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
 @media (max-width: 768px) {
+  .carousel {
+    column-gap: 0.25rem;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    transform: translateY(-0.85rem);
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+
+  .carousel-btn__icon {
+    font-size: 1.7rem;
+  }
+
   .icons-wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 1rem;
   }
 
   .icon {
     padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .carousel-btn__icon {
+    transition: color var(--motion-fast);
+  }
+
+  .carousel-control-prev:hover .carousel-btn__icon,
+  .carousel-control-next:hover .carousel-btn__icon,
+  .carousel-control-prev:focus-visible .carousel-btn__icon,
+  .carousel-control-next:focus-visible .carousel-btn__icon {
+    transform: none;
   }
 }

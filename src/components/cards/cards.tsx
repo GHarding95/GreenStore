@@ -96,7 +96,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
 
   return (
     <>
-      <Card>
+      <Card className="product-card">
         <LazyLoadImage
           className="card-img-top"
           src={imageSrc}
@@ -188,8 +188,6 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
         </Modal.Footer>
       </Modal>
     )}
-
-      <div id="basket-count" aria-live="polite" className="sr-only"></div>
     </>
   );
 });

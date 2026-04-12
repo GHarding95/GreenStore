@@ -1,24 +1,105 @@
-// Variables
+// Design tokens — eco-modern palette. `body[data-route]` is set in App for basket-safe product card rules in cards.scss.
 :root {
-  --green-primary: rgb(25, 135, 84);
-  --green-light: rgba(25, 135, 84, 0.1);
-  --green-dark: rgb(20, 105, 65);
-  --text-dark: #2c3e50;
-  --text-light: #6c757d;
+  --green-primary: #1b5e3a;
+  --green-light: rgba(27, 94, 58, 0.12);
+  --green-mid: #2d8f5c;
+  --green-dark: #0f3d26;
+  --green-accent: #5ecf9a;
+  --surface: #faf9f6;
+  --surface-elevated: #ffffff;
+  --text-dark: #1a2e24;
+  --text-light: #5c6b62;
+  --border-subtle: rgba(27, 94, 58, 0.15);
+  --shadow-sm: 0 2px 12px rgba(15, 61, 38, 0.06);
+  --shadow-md: 0 8px 32px rgba(15, 61, 38, 0.1);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --font-display: 'DM Sans', 'Poppins', sans-serif;
+  --motion-fast: 0.2s ease;
+  --motion-med: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// Global Styles
-html, body {
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0.01ms;
+    --motion-med: 0.01ms;
+  }
+}
+
+html {
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+}
+
+html,
+body {
   height: 100%;
   font-family: 'Poppins', sans-serif;
+  background: var(--surface);
+  color: var(--text-dark);
+}
 
-//   // Hide scrollbar for all browsers
-//   -ms-overflow-style: none; // IE, Edge
-//   scrollbar-width: none; // Firefox
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
-//   &::-webkit-scrollbar {
-//     display: none; // Chrome, Safari, Opera
-//   }
+// WCAG 2.4.1 Bypass Blocks — first tab stop
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0.75rem;
+  z-index: 10001;
+  padding: 0.65rem 1.1rem;
+  background: var(--green-dark);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-120%);
+  transition: transform var(--motion-fast);
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    transform: translateY(0);
+    outline: 3px solid var(--green-accent);
+    outline-offset: 2px;
+  }
+}
+
+// WCAG 2.4.7 Focus Visible (keyboard)
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible,
+.nav-link:focus-visible,
+.mobile-toggle:focus-visible {
+  outline: 3px solid var(--green-primary);
+  outline-offset: 2px;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+#main-content:focus-visible {
+  outline: 3px solid var(--green-primary);
+  outline-offset: 2px;
 }
 
 // App Component
@@ -26,8 +107,8 @@ html, body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  caret-color: transparent !important;
+  min-height: 100vh;
+  position: relative;
 }
 
 // Modal Styles
@@ -42,9 +123,8 @@ html, body {
   }
 }
 
-// Basket Styles
-
-.basket-card-body{
+// Basket page — keep layout/utility rules (basket.tsx unchanged)
+.basket-card-body {
   text-align: left;
 }
 
@@ -52,31 +132,6 @@ html, body {
   &:hover {
     transform: scale(1) !important;
     cursor: auto !important;
-  }
-}
-
-// Home Page
-.home-container {
-  background-image: url('./assets/landscape.webp'), linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  color: #fff;
-  z-index: 0;
-  margin-top: -80px;
-
-  h1 {
-    font-size: 4rem;
-    font-weight: 300;
-  }
-
-  @media (max-width: 400px) {
-    h1 {
-      font-size: 3rem !important;
-    }
   }
 }
 
@@ -98,7 +153,26 @@ html, body {
   width: 300px;
 }
 
-// Cards and Grid Layout
+// Match pre-overhaul basket line-item cards (no .product-card on basket page)
+body[data-route='/basket'] .card {
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-route='/basket'] .card {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+// Basket line-item card grid (horizontal cards)
 @media (min-width: 768px) and (max-width: 992px) {
   .card > .row > .col-md-3 {
     width: 50% !important;
@@ -120,7 +194,6 @@ html, body {
   }
 }
 
-// Quantity Buttons and Container
 .quantity-btns {
   display: flex;
   align-items: flex-end;
@@ -138,143 +211,41 @@ html, body {
       justify-content: center;
       padding-top: 20px;
     }
-
   }
 }
 
-// About Page
-.about-container {
-  width: 90%;
-  max-width: 900px;
-  margin: 50px auto;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-  color: var(--text-dark);
-
-  .about-banner {
-    background: var(--green-primary);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-  }
-
-  .about-content {
-    margin-top: 20px;
-    padding: 20px;
-    background: var(--green-light);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: var(--text-light);
-    }
-  }
-
-  .about-stats {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
-
-    @media (max-width: 600px) {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      .stat-box {
-        width: 80%;
-        margin-bottom: 20px;
-      }
-    }
-  }
-
-  .stat-box {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-      cursor: pointer;
-    }
-
-    h3 {
-      color: var(--green-dark);
-      font-size: 2rem;
-      margin-bottom: 5px;
-    }
-
-    p {
-      color: var(--text-light);
-      font-size: 0.9rem;
-    }
-  }
-}
-
-// TypeScript Icon
-.ts-icon {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-}
-
-// Stats Section
-.stats {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-
-  .stat {
-    text-align: center;
-
-    .number {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #007b3e;
-      transition: all 0.3s ease;
-    }
-
-    span {
-      display: block;
-      font-size: 1rem;
-      color: #333;
-      font-weight: normal;
-    }
-  }
-}
-
-// Form Inputs
-input[type="text"] {
+input[type='text'] {
   width: 100%;
-  padding: 10px;
+  padding: 12px 14px;
   margin-bottom: 20px;
   font-size: 16px;
-  border: 2px solid var(--green-primary);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast);
 }
 
 .form-control:focus {
   color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-  border-color: #198754 !important;
+  background-color: var(--surface-elevated);
+  border-color: var(--green-mid) !important;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem var(--green-light)!important;
+  box-shadow: 0 0 0 0.2rem var(--green-light) !important;
 }
 
-// Close Button
 .btn-close {
-  &:hover, &:focus {
-    box-shadow: 0 0 0 0.25rem var(--green-primary)!important;
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 0.2rem var(--green-light) !important;
   }
 }
 
-//Carousel
-
-.carousel-wrapper {
-  margin-top: 40px; 
-  margin-bottom: 40px; 
-  padding: 0;
+// Products page shell
+.products-page {
+  flex: 1;
+  text-align: left;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
 }

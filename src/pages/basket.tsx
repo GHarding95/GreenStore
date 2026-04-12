@@ -92,7 +92,7 @@ const Basket: React.FC<BasketProps> = ({ setCount }) => {
   const basketIsEmpty = savedItems.length === 0;
 
   return (
-    <div className="container p-5 px-3" role="main">
+    <div className="container p-5 px-3">
       {!basketIsEmpty && <h3 className="mb-4">Your Basket</h3>}
       {basketIsEmpty ? (
         <h3 className="text-center">Your basket is empty.</h3>

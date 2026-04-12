@@ -1,0 +1,316 @@
+// Homepage — uses tokens from App.scss
+.home {
+  flex: 1;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.home-hero {
+  position: relative;
+  min-height: min(92vh, 900px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -80px;
+  padding: 7rem 1.5rem 4rem;
+  color: #fff;
+  background:
+    linear-gradient(120deg, rgba(15, 61, 38, 0.85) 0%, rgba(27, 94, 58, 0.55) 45%, rgba(15, 45, 30, 0.75) 100%),
+    url('../assets/landscape.webp') center / cover no-repeat;
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    animation: homeHeroIn 0.9s var(--motion-med) both;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.95;
+    margin-bottom: 1rem;
+    color: var(--green-accent);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.35rem, 6vw, 3.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  &__lead {
+    font-size: clamp(1rem, 2.4vw, 1.2rem);
+    line-height: 1.55;
+    margin: 0 auto 2rem;
+    max-width: 520px;
+    opacity: 0.95;
+    font-weight: 400;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition:
+    transform var(--motion-fast),
+    box-shadow var(--motion-fast),
+    background var(--motion-fast);
+  border: 2px solid transparent;
+
+  &--primary {
+    background: var(--green-accent);
+    color: var(--green-dark);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      color: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  &--ghost {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.home-values {
+  padding: 4rem 1.5rem;
+  background: var(--surface);
+  position: relative;
+
+  &__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 2rem;
+    text-align: center;
+  }
+
+  &__grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+    }
+  }
+
+  &__item {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition:
+      transform var(--motion-med),
+      box-shadow var(--motion-med);
+    animation: homeFadeUp 0.7s var(--motion-med) both;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.05 + ($i * 0.07)}s;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+  }
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: var(--green-light);
+    color: var(--green-primary);
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text-light);
+  }
+}
+
+.home-band {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(180deg, var(--green-light) 0%, transparent 100%);
+
+  &__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    background: var(--surface-elevated);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-md);
+    animation: homeFadeUp 0.75s var(--motion-med) both;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 1.85rem);
+    font-weight: 700;
+    color: var(--green-dark);
+    margin: 0 0 0.75rem;
+  }
+
+  p {
+    margin: 0 0 1.5rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 1.05rem;
+  }
+}
+
+.home-steps {
+  padding: 3.5rem 1.5rem 4.5rem;
+  background: var(--surface);
+
+  &__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 2rem;
+  }
+
+  &__row {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  &__step {
+    flex: 1 1 200px;
+    max-width: 260px;
+    text-align: center;
+    animation: homeFadeUp 0.65s var(--motion-med) both;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.1 + ($i * 0.08)}s;
+      }
+    }
+  }
+
+  &__num {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 0.75rem;
+    line-height: 40px;
+    border-radius: 50%;
+    background: var(--green-primary);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    color: var(--text-dark);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+}
+
+@keyframes homeHeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes homeFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__inner,
+  .home-values__item,
+  .home-band__inner,
+  .home-steps__step {
+    animation: none !important;
+  }
+
+  .home-btn:hover,
+  .home-values__item:hover {
+    transform: none;
+  }
+}

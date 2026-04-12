@@ -1,15 +1,18 @@
-// Footer Styles
 footer {
   margin-top: auto;
   z-index: 1;
 
   .footer-background {
-    background-color: rgba(211, 211, 211, 0.8);
+    background: rgba(250, 249, 246, 0.88) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border-subtle);
   }
 
   div {
-    padding: 5px;
-    color: #000;
+    padding: 0.85rem 1rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-family: var(--font-display);
   }
 }
-

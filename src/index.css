@@ -1,4 +1,19 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 * {
   font-family: 'Poppins', Helvetica, Arial, sans-serif;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

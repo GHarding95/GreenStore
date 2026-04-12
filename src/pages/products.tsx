@@ -23,16 +23,21 @@ const Products: React.FC<ProductsProps> = ({ setCount }) => {
   );
 
   return (
-    <Container className='p-5 px-3'>
+    <Container className='products-page p-5 px-3'>
       {/* Search bar */}
       <Row>
         <Col>
+          <Form.Label htmlFor="product-search" className="visually-hidden">
+            Search products by name or description
+          </Form.Label>
           <Form.Control
+            id="product-search"
             type="text"
-            name='product-search'
+            name="product-search"
             placeholder="Search for a product..."
             value={searchQuery}
             onChange={handleSearchChange}
+            autoComplete="off"
           />
         </Col>
       </Row>

@@ -1,4 +1,4 @@
-// One row: [prev] [slides] [next] — arrows align with the icon strip, not full viewport height
+// One row: [prev] [slides] [next] - arrows align with the icon strip, not full viewport height
 .carousel {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;

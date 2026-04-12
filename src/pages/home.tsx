@@ -10,9 +10,9 @@ const Home: React.FC = () => {
       <section className="home-hero" aria-labelledby="home-hero-heading">
         <div className="home-hero__inner">
           <p className="home-hero__eyebrow">Fresh · Sustainable · Local</p>
-          <h1 id="home-hero-heading">Nature-first shopping, made simple.</h1>
+          <h1 id="home-hero-heading">GreenStore</h1>
           <p className="home-hero__lead">
-            GreenStore brings together thoughtfully sourced goods and a calm, modern experience—so you can shop with confidence and care for the planet.
+            We bring together thoughtfully sourced goods and a calm, modern experience - so you can shop with confidence and care for the planet.
           </p>
           <div className="home-hero__actions">
             <Link className="home-btn home-btn--primary" to="/products">
@@ -26,9 +26,12 @@ const Home: React.FC = () => {
       </section>
 
       <section className="home-values" aria-labelledby="values-heading">
-        <h2 id="values-heading" className="home-values__title">
-          Why GreenStore
-        </h2>
+        <div className="home-values__header">
+          <h2 id="values-heading" className="home-values__title">
+            <span className="home-values__title-prefix">Why</span>{' '}
+            <span className="home-values__title-emphasis">shop with us</span>
+          </h2>
+        </div>
         <div className="home-values__grid">
           <article
             className="home-values__item"
@@ -53,7 +56,7 @@ const Home: React.FC = () => {
             </div>
             <h3 id="value-heading-quality">Quality you can feel</h3>
             <p id="value-desc-quality">
-              Every item is chosen for durability and everyday use—fewer replacements, less waste.
+              Every item is chosen for durability and everyday use - fewer replacements, less waste.
             </p>
           </article>
           <article
@@ -74,9 +77,9 @@ const Home: React.FC = () => {
 
       <section className="home-band" aria-labelledby="band-heading">
         <div className="home-band__inner">
-          <h2 id="band-heading">Shop the collection</h2>
+          <h2 id="band-heading">Our collection</h2>
           <p>
-            Browse the full catalog, search by name or description, and add items to your basket—same flow you know, wrapped in a refreshed look.
+            Browse the full catalog, search by name or description, and add items to your basket - same flow you know, wrapped in a refreshed look.
           </p>
           <Link className="home-btn home-btn--primary" to="/products">
             Browse all products
@@ -100,8 +103,8 @@ const Home: React.FC = () => {
             <div className="home-steps__num" aria-hidden>
               2
             </div>
-            <h3>Customize</h3>
-            <p>Open a product, set quantity, and add it to your basket.</p>
+            <h3>Add to basket</h3>
+            <p>Open a product, choose a quantity, and add it to your basket.</p>
           </div>
           <div className="home-steps__step">
             <div className="home-steps__num" aria-hidden>

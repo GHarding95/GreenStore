@@ -1,4 +1,4 @@
-// Design tokens — eco-modern palette. `body[data-route]` is set in App for basket-safe product card rules in cards.scss.
+// Design tokens - eco-modern palette. `body[data-route]` is set in App for basket-safe product card rules in cards.scss.
 :root {
   --green-primary: #1b5e3a;
   --green-light: rgba(27, 94, 58, 0.12);
@@ -53,7 +53,7 @@ body {
   border: 0;
 }
 
-// WCAG 2.4.1 Bypass Blocks — first tab stop
+// WCAG 2.4.1 Bypass Blocks - first tab stop
 .skip-link {
   position: absolute;
   top: 0;
@@ -123,7 +123,7 @@ button:focus-visible,
   }
 }
 
-// Basket page — keep layout/utility rules (basket.tsx unchanged)
+// Basket page - keep layout/utility rules (basket.tsx unchanged)
 .basket-card-body {
   text-align: left;
 }

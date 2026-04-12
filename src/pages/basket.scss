@@ -135,6 +135,12 @@
   margin-top: 0.5rem;
   padding-top: 0.65rem;
   border-top: 1px solid rgba(27, 94, 58, 0.08);
+
+  // Keep qty + remove on one row at very narrow widths (wrap was pushing the bin to a new line)
+  @media (max-width: 349px) {
+    flex-wrap: nowrap;
+    gap: 0.45rem;
+  }
 }
 
 .basket-line__qty {
@@ -145,6 +151,10 @@
   background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: 999px;
+
+  @media (max-width: 349px) {
+    gap: 0.25rem;
+  }
 }
 
 .basket-line__qty .btn-sm {
@@ -166,6 +176,11 @@
 
   &:disabled {
     opacity: 0.35;
+  }
+
+  @media (max-width: 349px) {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 

@@ -115,7 +115,7 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
         />
         <Card.Body className="card-body">
           <Card.Title as="h4">{title}</Card.Title>
-          <Card.Text>{text}</Card.Text>
+          <Card.Text className="product-card__desc">{text}</Card.Text>
           <Card.Text className="fw-bold">${price} {currency}</Card.Text>
           <div className="mt-auto">
             <Button

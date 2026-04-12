@@ -19,7 +19,6 @@
   - App.scss
   - App.tsx
   - assets
-    - cart.svg
     - greenstore_logo.png
     - home-hero-landscape.jpg
     - ts-logo.png

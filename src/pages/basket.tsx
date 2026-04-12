@@ -183,7 +183,7 @@ const Basket: React.FC<BasketProps> = ({ setCount }) => {
                       variant="outline-danger"
                       className="btn-sm basket-line__remove"
                       type="button"
-                      onClick={() => handleRemoveItem(item)}
+                      onClick={() => setRemoveConfirmItem(item)}
                       aria-label={`Remove ${item.title} from basket`}
                     >
                       <FontAwesomeIcon icon={faTrash} aria-hidden />

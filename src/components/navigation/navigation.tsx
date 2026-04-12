@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './navigation.scss';
 import logo from '../../assets/greenstore_logo.png';
-import cart from '../../assets/cart.svg';
+import NavCartIcon from './NavCartIcon';
 import { Image } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import {
@@ -91,12 +91,25 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
           </div>
 
           <div className='nav-right'>
-            <NavLink className='basket-wrapper nav-link' to='/basket' aria-label="View basket">
-              <span className='count-wrapper'>
-                <span id="basket-count" className="basket-count" aria-live="polite" aria-atomic="true">
+            <NavLink
+              className='basket-wrapper nav-link'
+              to='/basket'
+              aria-label={
+                basketCount === 0
+                  ? 'View basket, empty'
+                  : `View basket, ${basketCount} ${basketCount === 1 ? 'item' : 'items'}`
+              }
+            >
+              <span className="basket-nav-icon">
+                <NavCartIcon className="basket-nav-icon__svg" />
+                <span
+                  id="basket-count"
+                  className="basket-nav-icon__badge"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
                   {basketCount}
                 </span>
-                <img src={cart} className='minibasket' alt='shopping cart' />
               </span>
             </NavLink>
             

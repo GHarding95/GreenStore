@@ -24,7 +24,7 @@ const RouteTracker: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const { cards, setCards } = useFetchData();
+  const { cards, setCards, productsError, productsLoading, refetchProducts } = useFetchData();
   const [count, setCount] = useState<number>(0);
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
@@ -39,7 +39,17 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <RouteTracker />
-      <BasketContext.Provider value={{ cards, setCards, basketCount: count, setBasketCount: setCount }}>
+      <BasketContext.Provider
+        value={{
+          cards,
+          setCards,
+          basketCount: count,
+          setBasketCount: setCount,
+          productsError,
+          productsLoading,
+          refetchProducts,
+        }}
+      >
         {isInitialized && (
           <>
             <a href="#main-content" className="skip-link" tabIndex={1}>
@@ -49,7 +59,7 @@ const App: React.FC = () => {
             <main id="main-content" tabIndex={-1}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Products setCount={setCount} />} />
+                <Route path="/products" element={<Products />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/basket" element={<Basket setCount={setCount} />} />
               </Routes>

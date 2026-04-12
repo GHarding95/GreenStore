@@ -6,6 +6,9 @@ const BasketContext = createContext<BasketContextType>({
   setCards: () => {},
   basketCount: 0,
   setBasketCount: () => {},
+  productsError: null,
+  productsLoading: true,
+  refetchProducts: async () => {},
 });
 
 export default BasketContext;

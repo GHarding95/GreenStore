@@ -12,4 +12,7 @@ export interface BasketContextType {
   setCards: React.Dispatch<React.SetStateAction<ProductCard[]>>;
   basketCount: number;
   setBasketCount: React.Dispatch<React.SetStateAction<number>>;
+  productsError: string | null;
+  productsLoading: boolean;
+  refetchProducts: (options?: { skipCache?: boolean }) => Promise<void>;
 }

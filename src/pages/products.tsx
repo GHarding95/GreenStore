@@ -1,29 +1,32 @@
 import React, { useContext, useState } from 'react';
 import Cards from '../components/cards/cards';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form, Alert, Button, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import BasketContext from '../hooks/basketContext';
 import { BasketContextType } from '../types';
 import './products.scss';
 
-interface ProductsProps {
-  setCount: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const Products: React.FC<ProductsProps> = ({ setCount }) => {
-  const { cards } = useContext<BasketContextType>(BasketContext);
+const Products: React.FC = () => {
+  const { cards, productsError, productsLoading, refetchProducts } =
+    useContext<BasketContextType>(BasketContext);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
+  const handleRetry = () => {
+    void refetchProducts({ skipCache: true });
+  };
+
   // Filter the cards based on the search query
-  const filteredCards = cards.filter((card) =>
-    card.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    card.text.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const q = searchQuery.toLowerCase();
+  const filteredCards = cards.filter((card) => {
+    const title = (card.title ?? '').toLowerCase();
+    const text = (card.text ?? '').toLowerCase();
+    return title.includes(q) || text.includes(q);
+  });
 
   return (
     <Container className="products-page px-3 py-4 py-md-5">
@@ -53,25 +56,57 @@ const Products: React.FC<ProductsProps> = ({ setCount }) => {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 autoComplete="off"
+                disabled={productsLoading}
+                aria-busy={productsLoading}
               />
             </div>
           </div>
         </Col>
       </Row>
 
-      <Row xs={2} md={4} className="products-page__grid g-3 g-md-4">
-        {filteredCards.map((card, index) => (
-          <Col key={index} md={3}>
-            <Cards
-              imageSrc={card.imageSrc}
-              title={card.title}
-              text={card.text}
-              price={card.price}
-              currency={card.currency}
-            />
-          </Col>
-        ))}
-      </Row>
+      {productsError && (
+        <Alert variant="danger" className="products-page__alert" role="alert">
+          <p className="mb-2">{productsError}</p>
+          <Button
+            type="button"
+            variant="outline-danger"
+            size="sm"
+            onClick={handleRetry}
+            disabled={productsLoading}
+          >
+            Try again
+          </Button>
+        </Alert>
+      )}
+
+      {productsLoading && (
+        <div className="products-page__loading" aria-live="polite">
+          <Spinner animation="border" role="status" className="products-page__loading-spinner">
+            <span className="visually-hidden">Loading products</span>
+          </Spinner>
+          <span className="products-page__loading-text">Loading products…</span>
+        </div>
+      )}
+
+      {!productsLoading && !productsError && filteredCards.length === 0 && cards.length > 0 && (
+        <p className="products-page__empty">No products match your search.</p>
+      )}
+
+      {!productsLoading && !productsError && filteredCards.length > 0 && (
+        <Row xs={2} md={4} className="products-page__grid g-3 g-md-4">
+          {filteredCards.map((card, index) => (
+            <Col key={`${card.title}-${index}`} md={3}>
+              <Cards
+                imageSrc={card.imageSrc}
+                title={card.title}
+                text={card.text}
+                price={card.price}
+                currency={card.currency}
+              />
+            </Col>
+          ))}
+        </Row>
+      )}
     </Container>
   );
 };

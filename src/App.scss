@@ -1,4 +1,4 @@
-// Design tokens - eco-modern palette. `body[data-route]` is set in App for basket-safe product card rules in cards.scss.
+// Design tokens - eco-modern palette. `body[data-route]` is set in App for route-scoped product card rules in cards.scss.
 :root {
   --green-primary: #1b5e3a;
   --green-light: rgba(27, 94, 58, 0.12);
@@ -123,18 +123,6 @@ button:focus-visible,
   }
 }
 
-// Basket page - keep layout/utility rules (basket.tsx unchanged)
-.basket-card-body {
-  text-align: left;
-}
-
-.basket-img {
-  &:hover {
-    transform: scale(1) !important;
-    cursor: auto !important;
-  }
-}
-
 // Utility Classes
 .p-7 {
   padding-top: 7rem;
@@ -146,71 +134,6 @@ button:focus-visible,
 
   &:hover {
     cursor: pointer;
-  }
-}
-
-.basket-btn {
-  width: 300px;
-}
-
-// Match pre-overhaul basket line-item cards (no .product-card on basket page)
-body[data-route='/basket'] .card {
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body[data-route='/basket'] .card {
-    transition: none;
-
-    &:hover {
-      transform: none;
-    }
-  }
-}
-
-// Basket line-item card grid (horizontal cards)
-@media (min-width: 768px) and (max-width: 992px) {
-  .card > .row > .col-md-3 {
-    width: 50% !important;
-  }
-
-  .card > .row > .col-md-8 {
-    width: 100% !important;
-  }
-
-  .card > .row {
-    justify-content: center;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1400px) {
-  .card > .row > .col-md-3 {
-    flex: 0 0 auto;
-    width: 33.33333333%;
-  }
-}
-
-.quantity-btns {
-  display: flex;
-  align-items: flex-end;
-  padding: 0 0 5px 10px;
-}
-
-.quantity-container {
-  display: flex;
-
-  @media (max-width: 450px) {
-    display: block !important;
-    padding-bottom: 20px;
-
-    .quantity-btns {
-      justify-content: center;
-      padding-top: 20px;
-    }
   }
 }
 

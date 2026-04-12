@@ -135,18 +135,21 @@
 .nav-container .nav-middle .nav-link,
 .nav-container .nav-middle a.nav-link {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.95rem;
   color: var(--text-dark) !important;
   padding: 0.5rem 1rem !important;
   border-radius: 999px;
-  transition:
-    color var(--motion-fast),
-    background var(--motion-fast);
+  text-decoration: none;
+  transition: color var(--motion-fast);
 
   &:hover:not(.active) {
     color: var(--green-primary) !important;
-    background: var(--green-light);
+    background: transparent !important;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.28em;
+    text-decoration-color: var(--green-primary);
   }
 
   &.active {
@@ -204,13 +207,15 @@
       color: var(--text-dark);
       padding: 0.5rem 1.25rem;
       border-radius: var(--radius-sm);
-      transition:
-        color var(--motion-fast),
-        background var(--motion-fast);
+      transition: color var(--motion-fast);
 
       &:hover:not(.active) {
         color: var(--green-primary);
-        background: var(--green-light);
+        background: transparent;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 0.22em;
+        text-decoration-color: var(--green-primary);
       }
 
       &.active {

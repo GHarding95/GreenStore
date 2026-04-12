@@ -144,9 +144,24 @@
     color var(--motion-fast),
     background var(--motion-fast);
 
-  &:hover {
+  &:hover:not(.active) {
     color: var(--green-primary) !important;
     background: var(--green-light);
+  }
+
+  &.active {
+    color: var(--green-primary) !important;
+    font-weight: 700 !important;
+    background: transparent !important;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.28em;
+    text-decoration-color: var(--green-primary);
+  }
+
+  &.active:hover {
+    background: transparent !important;
+    color: var(--green-primary) !important;
   }
 }
 
@@ -193,9 +208,24 @@
         color var(--motion-fast),
         background var(--motion-fast);
 
-      &:hover {
+      &:hover:not(.active) {
         color: var(--green-primary);
         background: var(--green-light);
+      }
+
+      &.active {
+        color: var(--green-primary);
+        font-weight: 700;
+        background: transparent;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 0.22em;
+        text-decoration-color: var(--green-primary);
+      }
+
+      &.active:hover {
+        background: transparent;
+        color: var(--green-primary);
       }
     }
   }
@@ -221,8 +251,3 @@
   }
 }
 
-.nav-link.active {
-  color: var(--green-primary) !important;
-  font-weight: 700 !important;
-  background: var(--green-light) !important;
-}

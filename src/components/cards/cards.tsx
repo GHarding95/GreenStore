@@ -118,8 +118,13 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
           <Card.Text>{text}</Card.Text>
           <Card.Text className="fw-bold">${price} {currency}</Card.Text>
           <div className="mt-auto">
-            <Button variant="success" className='product-btn' onClick={handleOpenModal} aria-label={`View details of ${title}`}>
-              View Details
+            <Button
+              variant="success"
+              className="product-btn"
+              onClick={handleOpenModal}
+              aria-label={`View details of ${title}`}
+            >
+              View details
             </Button>
           </div>
         </Card.Body>
@@ -129,12 +134,24 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
 {/* Item details Modal */}
 
       {showModal && (
-        <Modal show={showModal} onHide={handleCloseModal} role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
-          <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
+        <Modal
+          show={showModal}
+          onHide={handleCloseModal}
+          centered
+          role="dialog"
+          aria-labelledby="modal-title"
+          aria-describedby="modal-desc"
+          dialogClassName="product-modal__dialog"
+          contentClassName="product-modal__content"
+          backdropClassName="product-modal__backdrop"
+        >
+          <Modal.Header closeButton className="product-modal__header">
+            <Modal.Title id="modal-title" className="product-modal__title">
+              {title}
+            </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <div className="modal-image-container">
+          <Modal.Body className="product-modal__body">
+            <div className="modal-image-container product-modal__media">
               <LazyLoadImage 
                 src={imageSrc} 
                 alt={title} 
@@ -147,15 +164,22 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
                 }}
               />
             </div>
-            <p>{text}</p>
-            <p><strong>${price} {currency}</strong></p>
-            <Modal.Footer>
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex">
-                  <Button variant="success" onClick={handleAddToCart} className="custom-add-to-basket-btn" aria-label={`Add ${title} to basket`}>
+            <p className="product-modal__description">{text}</p>
+            <p className="product-modal__price">
+              <strong>${price} {currency}</strong>
+            </p>
+            <Modal.Footer className="product-modal__footer">
+              <div className="d-flex flex-wrap justify-content-center align-items-center gap-3 w-100">
+                <div className="d-flex flex-wrap align-items-center gap-3">
+                  <Button
+                    variant="success"
+                    onClick={handleAddToCart}
+                    className="custom-add-to-basket-btn product-modal__add-btn"
+                    aria-label={`Add ${title} to basket`}
+                  >
                     Add to Basket
                   </Button>
-                  <div className="d-flex align-items-center ms-3">
+                  <div className="d-flex align-items-center product-modal__qty">
                     <Button variant="outline-success" className="btn-sm" onClick={handleDecreaseQuantity} disabled={quantity === 1}>
                       <FontAwesomeIcon icon={faMinus} />
                     </Button>
@@ -174,18 +198,55 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
 {/* Confirmation Modal */}
 
     {showConfirmation && (
-      <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered role="alertdialog" aria-labelledby="confirmation-title">
-        <Modal.Header closeButton>
-          <Modal.Title>Item Added</Modal.Title>
+      <Modal
+        show={showConfirmation}
+        onHide={handleCloseConfirmation}
+        centered
+        role="alertdialog"
+        aria-labelledby="confirmation-title"
+        dialogClassName="basket-confirm__dialog"
+        contentClassName="product-modal__content basket-confirm__sheet"
+        backdropClassName="product-modal__backdrop"
+      >
+        <Modal.Header closeButton className="basket-confirm__header">
+          <Modal.Title id="confirmation-title" className="visually-hidden">
+            {title} added to your basket, quantity {quantity}
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p><strong>{title} x{quantity}</strong> added to your basket.</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" onClick={handleCloseConfirmation}>
-            OK
+        <Modal.Body className="basket-confirm__body">
+          <div className="basket-confirm__row">
+            <div className="basket-confirm__media">
+              <LazyLoadImage
+                className="basket-confirm__img"
+                src={imageSrc}
+                alt=""
+                effect="blur"
+                threshold={50}
+                visibleByDefault
+                placeholderSrc="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8vPjwvc3ZnPg=="
+                onError={(e) => {
+                  e.currentTarget.src =
+                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YwZjBmMCIvPjwvc3ZnPg==';
+                }}
+              />
+            </div>
+            <div className="basket-confirm__main">
+              <p className="basket-confirm__eyebrow">Added to basket</p>
+              <p className="basket-confirm__title">{title}</p>
+              <div
+                className="basket-confirm__qty"
+                role="group"
+                aria-label={`Quantity: ${quantity}`}
+              >
+                <span className="basket-confirm__qty-label">Quantity:</span>
+                <span className="basket-confirm__qty-badge">{quantity}</span>
+              </div>
+            </div>
+          </div>
+          <Button variant="success" className="basket-confirm__action" onClick={handleCloseConfirmation}>
+            Done
           </Button>
-        </Modal.Footer>
+        </Modal.Body>
       </Modal>
     )}
     </>

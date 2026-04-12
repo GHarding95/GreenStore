@@ -168,30 +168,28 @@ const Cards: React.FC<CardsProps> = memo(({ imageSrc, title, text, price, curren
             <p className="product-modal__price">
               <strong>${price} {currency}</strong>
             </p>
-            <Modal.Footer className="product-modal__footer">
-              <div className="d-flex flex-wrap justify-content-center align-items-center gap-3 w-100">
-                <div className="d-flex flex-wrap align-items-center gap-3">
-                  <Button
-                    variant="success"
-                    onClick={handleAddToCart}
-                    className="custom-add-to-basket-btn product-modal__add-btn"
-                    aria-label={`Add ${title} to basket`}
-                  >
-                    Add to Basket
-                  </Button>
-                  <div className="d-flex align-items-center product-modal__qty">
-                    <Button variant="outline-success" className="btn-sm" onClick={handleDecreaseQuantity} disabled={quantity === 1}>
-                      <FontAwesomeIcon icon={faMinus} />
-                    </Button>
-                    <span className="quantity-display mx-2"><strong>{quantity}</strong></span>
-                    <Button variant="outline-success" className="btn-sm" onClick={handleIncreaseQuantity} disabled={quantity >= 99}>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Modal.Footer>
           </Modal.Body>
+          <Modal.Footer className="product-modal__footer">
+            <div className="product-modal__footer-actions">
+              <Button
+                variant="success"
+                onClick={handleAddToCart}
+                className="custom-add-to-basket-btn product-modal__add-btn"
+                aria-label={`Add ${title} to basket`}
+              >
+                Add to Basket
+              </Button>
+              <div className="d-flex align-items-center product-modal__qty">
+                <Button variant="outline-success" className="btn-sm" onClick={handleDecreaseQuantity} disabled={quantity === 1}>
+                  <FontAwesomeIcon icon={faMinus} />
+                </Button>
+                <span className="quantity-display mx-2"><strong>{quantity}</strong></span>
+                <Button variant="outline-success" className="btn-sm" onClick={handleIncreaseQuantity} disabled={quantity >= 99}>
+                  <FontAwesomeIcon icon={faPlus} />
+                </Button>
+              </div>
+            </div>
+          </Modal.Footer>
         </Modal>
       )}
 

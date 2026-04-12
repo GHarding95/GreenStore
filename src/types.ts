@@ -1,4 +1,4 @@
-export interface ProductCard { // Renamed from Card as it was conflicting with the Card interface in useFetchData.ts
+export interface ProductCard {
   imageSrc: string;
   title: string;
   text: string;

@@ -15,6 +15,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { useContext } from 'react';
 import BasketContext from '../../hooks/basketContext';
+import SkipToMain from '../SkipToMain/SkipToMain';
 
 interface NavigationProps {
   count: number;
@@ -59,6 +60,7 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
 
   return (
     <div>
+      <SkipToMain />
       <MDBNavbar expand='lg' className='navbar-top' role="navigation" aria-label="Main navigation">
         <MDBContainer className='nav-container'>
           <div className='nav-left'>

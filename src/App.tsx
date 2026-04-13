@@ -13,28 +13,43 @@ import BasketContext from './hooks/basketContext';
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
-/** Sets `body[data-route]` and scrolls to top on navigation (React Router preserves scroll by default). */
+/**
+ * Sets `body[data-route]`, scrolls to top, and clears focus on route changes so the next Tab
+ * targets the first focusable in document order (the skip link). Otherwise focus stays on the
+ * clicked nav link and Tab skips past the skip control.
+ */
 const RouteTracker: React.FC = () => {
   const location = useLocation();
   useEffect(() => {
     document.body.dataset.route = location.pathname;
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const id = window.requestAnimationFrame(() => {
+      const active = document.activeElement;
+      if (active instanceof HTMLElement && active !== document.body) {
+        active.blur();
+      }
+    });
+    return () => window.cancelAnimationFrame(id);
   }, [location.pathname]);
   return null;
 };
 
+function readStoredBasketCount(): number {
+  try {
+    const stored = localStorage.getItem('basketCount');
+    if (stored) {
+      const n = parseInt(stored, 10);
+      return Number.isFinite(n) ? n : 0;
+    }
+  } catch {
+    /* localStorage unavailable */
+  }
+  return 0;
+}
+
 const App: React.FC = () => {
   const { cards, setCards, productsError, productsLoading, refetchProducts } = useFetchData();
-  const [count, setCount] = useState<number>(0);
-  const [isInitialized, setIsInitialized] = useState<boolean>(false);
-
-  useEffect(() => {
-    const storedCount = localStorage.getItem('basketCount');
-    if (storedCount) {
-      setCount(parseInt(storedCount, 10));
-    }
-    setIsInitialized(true);
-  }, []);
+  const [count, setCount] = useState<number>(readStoredBasketCount);
 
   return (
     <div className="App">
@@ -50,23 +65,18 @@ const App: React.FC = () => {
           refetchProducts,
         }}
       >
-        {isInitialized && (
-          <>
-            <a href="#main-content" className="skip-link" tabIndex={1}>
-              Skip to main content
-            </a>
-            <Navigation count={count} setCount={setCount} />
-            <main id="main-content" tabIndex={-1}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/basket" element={<Basket setCount={setCount} />} />
-              </Routes>
-            </main>
-            <Footer />
-          </>
-        )}
+        <>
+          <Navigation count={count} setCount={setCount} />
+          <main id="main-content" tabIndex={-1}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/basket" element={<Basket setCount={setCount} />} />
+            </Routes>
+          </main>
+          <Footer />
+        </>
       </BasketContext.Provider>
       <Analytics />
       <SpeedInsights />

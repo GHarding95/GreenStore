@@ -1,4 +1,3 @@
-// Design tokens - eco-modern palette. `body[data-route]` is set in App for route-scoped product card rules in cards.scss.
 :root {
   --green-primary: #1b5e3a;
   --green-light: rgba(27, 94, 58, 0.12);
@@ -53,7 +52,6 @@ body {
   border: 0;
 }
 
-// WCAG 2.4.1 Bypass Blocks - first tab stop
 .skip-link {
   position: absolute;
   top: 0;
@@ -82,18 +80,17 @@ body {
   }
 }
 
-// WCAG 2.4.7 Focus Visible (keyboard)
 a:focus-visible,
 button:focus-visible,
 .btn:focus-visible,
 .form-control:focus-visible,
 .nav-link:focus-visible,
-.mobile-toggle:focus-visible {
+.mobile-toggle:focus-visible,
+#main-content:focus-visible {
   outline: 3px solid var(--green-primary);
   outline-offset: 2px;
 }
 
-// Content-sized height only: flex-grow on main left a beige (--surface) gap above the footer.
 #main-content {
   flex: 0 1 auto;
   display: flex;
@@ -103,14 +100,8 @@ button:focus-visible,
   &:focus {
     outline: none;
   }
-
-  &:focus-visible {
-    outline: 3px solid var(--green-primary);
-    outline-offset: 2px;
-  }
 }
 
-// App Component
 .App {
   text-align: center;
   display: flex;
@@ -119,7 +110,6 @@ button:focus-visible,
   position: relative;
 }
 
-// Modal Styles
 .modal-body {
   > p {
     padding-top: 15px;
@@ -129,12 +119,6 @@ button:focus-visible,
   > div {
     text-align: start;
   }
-}
-
-// Utility Classes
-.p-7 {
-  padding-top: 7rem;
-  padding-bottom: 5rem;
 }
 
 .icon {

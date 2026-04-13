@@ -385,11 +385,10 @@ body[data-route='/basket'] #main-content {
 }
 
 .basket-page__modal-content.modal-content {
-  border: none;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-subtle);
 }
 
 .basket-page__modal-header.modal-header {

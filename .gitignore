@@ -12,7 +12,6 @@
 /build
 
 # misc
-project_structure.text
 .DS_Store
 .env.local
 .env.development.local

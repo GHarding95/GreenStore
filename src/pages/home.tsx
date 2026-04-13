@@ -106,7 +106,8 @@ const Home: React.FC = () => {
         aria-labelledby="steps-heading"
       >
         <h2 id="steps-heading" className="home-steps__title">
-          How it works
+          <span className="home-steps__title-prefix">How it</span>{' '}
+          <span className="home-steps__title-emphasis">works</span>
         </h2>
         <div className="home-steps__row">
           <div className="home-steps__step">

@@ -110,6 +110,15 @@ button:focus-visible,
   position: relative;
 }
 
+// All Bootstrap modals: center the dialog in the viewport (matches `centered` / `.modal-dialog-centered`)
+.modal .modal-dialog {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - var(--bs-modal-margin, 0.5rem) * 2);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .modal-body {
   > p {
     padding-top: 15px;

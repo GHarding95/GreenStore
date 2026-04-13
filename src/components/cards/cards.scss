@@ -296,15 +296,6 @@
   -webkit-backdrop-filter: blur(10px);
 }
 
-.product-modal__dialog.modal-dialog.modal-dialog-centered,
-.basket-confirm__dialog.modal-dialog.modal-dialog-centered {
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  align-items: center;
-  min-height: calc(100% - var(--bs-modal-margin, 0.5rem) * 2);
-}
-
 .product-modal__dialog {
   max-width: min(540px, 100vw - 2rem);
 }

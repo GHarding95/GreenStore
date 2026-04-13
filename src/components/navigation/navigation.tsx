@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './navigation.scss';
 import logo from '../../assets/greenstore_logo.png';
-import NavCartIcon from './NavCartIcon';
 import { Image } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faShoppingCart, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import {
   MDBNavbar,
@@ -12,8 +13,6 @@ import {
   MDBNavbarNav,
   MDBNavbarItem,
 } from 'mdb-react-ui-kit';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import BasketContext from '../../hooks/basketContext';
 
@@ -101,7 +100,7 @@ const Navigation: React.FC<NavigationProps> = ({ count, setCount }) => {
               }
             >
               <span className="basket-nav-icon">
-                <NavCartIcon className="basket-nav-icon__svg" />
+                <FontAwesomeIcon icon={faShoppingCart} className="basket-nav-icon__svg" aria-hidden />
                 <span
                   id="basket-count"
                   className="basket-nav-icon__badge"

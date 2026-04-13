@@ -1,18 +1,25 @@
 .nav-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-  max-width: 1320px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1rem 0 0.5rem;
 
   .nav-left {
-    flex: 1;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 0;
 
     .logo-container {
       display: block;
       padding: 0.25rem 0;
+      margin-left: 0;
+      margin-right: auto;
+      width: fit-content;
       transition: opacity var(--motion-fast);
 
       &:hover {
@@ -32,9 +39,12 @@
   }
 
   .nav-middle {
-    flex: 2;
+    flex: 1 1 auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 0;
+    padding-left: 1rem;
 
     @media (max-width: 991px) {
       display: none;
@@ -42,7 +52,8 @@
   }
 
   .nav-right {
-    flex: 1;
+    flex: 0 0 auto;
+    margin-left: auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -73,12 +84,15 @@
       height: 3.1rem;
     }
 
+    // Solid cart icon — matches empty-basket state (`.basket-empty__icon`)
     .basket-nav-icon__svg {
-      width: 2.15rem;
-      height: 2.15rem;
+      width: 2.125rem;
+      height: 2.125rem;
       color: var(--green-primary);
+      opacity: 0.92;
       transition:
         color var(--motion-fast),
+        opacity var(--motion-fast),
         transform var(--motion-fast),
         filter var(--motion-fast);
       filter: drop-shadow(0 1px 2px rgba(15, 61, 38, 0.08));
@@ -86,6 +100,7 @@
 
     .basket-wrapper:hover .basket-nav-icon__svg {
       color: var(--green-dark);
+      opacity: 1;
       transform: scale(1.07);
       filter: drop-shadow(0 2px 6px rgba(27, 94, 58, 0.18));
     }

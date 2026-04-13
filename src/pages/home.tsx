@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { type LegacyRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeaf, faSeedling, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import './home.scss';
 
 const Home: React.FC = () => {
+  const [valuesRef, valuesVisible] = useScrollReveal<HTMLElement>();
+  const [bandRef, bandVisible] = useScrollReveal<HTMLElement>();
+  const [stepsRef, stepsVisible] = useScrollReveal<HTMLElement>();
+
   return (
     <div className="home">
       <section className="home-hero" aria-labelledby="home-hero-heading">
@@ -25,7 +30,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="home-values" aria-labelledby="values-heading">
+      <section
+        ref={valuesRef as LegacyRef<HTMLElement>}
+        className={`home-values home-reveal${valuesVisible ? ' home-reveal--visible' : ''}`}
+        aria-labelledby="values-heading"
+      >
         <div className="home-values__header">
           <h2 id="values-heading" className="home-values__title">
             <span className="home-values__title-prefix">Why</span>{' '}
@@ -75,7 +84,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="home-band" aria-labelledby="band-heading">
+      <section
+        ref={bandRef as LegacyRef<HTMLElement>}
+        className={`home-band home-reveal${bandVisible ? ' home-reveal--visible' : ''}`}
+        aria-labelledby="band-heading"
+      >
         <div className="home-band__inner">
           <h2 id="band-heading">Our collection</h2>
           <p>
@@ -87,7 +100,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="home-steps" aria-labelledby="steps-heading">
+      <section
+        ref={stepsRef as LegacyRef<HTMLElement>}
+        className={`home-steps home-reveal${stepsVisible ? ' home-reveal--visible' : ''}`}
+        aria-labelledby="steps-heading"
+      >
         <h2 id="steps-heading" className="home-steps__title">
           How it works
         </h2>

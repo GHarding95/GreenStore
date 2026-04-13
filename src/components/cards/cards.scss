@@ -356,7 +356,8 @@
 
     &:focus-visible {
       opacity: 1;
-      box-shadow: 0 0 0 2px rgba(27, 94, 58, 0.25);
+      outline: none;
+      box-shadow: 0 0 0 2px var(--green-primary);
     }
   }
 }
@@ -514,23 +515,21 @@
   border-bottom: 1px solid var(--border-subtle);
   background: linear-gradient(180deg, rgba(27, 94, 58, 0.06) 0%, rgba(250, 249, 246, 0) 100%);
 
+  // Match basket confirmation modal close (`.basket-confirm__header .btn-close`)
   .btn-close {
-    padding: 0.65rem;
-    margin: -0.35rem -0.35rem -0.35rem auto;
-    border-radius: var(--radius-sm);
-    opacity: 0.65;
-    transition:
-      opacity var(--motion-fast),
-      background var(--motion-fast);
+    margin: 0 0 0 auto;
+    padding: 0.55rem;
+    opacity: 0.45;
+    transition: opacity var(--motion-fast), transform var(--motion-fast);
 
     &:hover {
-      opacity: 1;
-      background: var(--green-light);
+      opacity: 0.9;
     }
 
     &:focus-visible {
+      opacity: 1;
       outline: none;
-      box-shadow: 0 0 0 3px var(--green-light);
+      box-shadow: 0 0 0 2px var(--green-primary);
     }
   }
 }

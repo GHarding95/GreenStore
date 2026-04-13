@@ -111,7 +111,7 @@ const Basket: React.FC<BasketProps> = ({ setCount }) => {
   const currencyLabel = savedItems[0]?.currency ?? '';
 
   return (
-    <div className="container">
+    <div className="container basket-layout">
       {basketIsEmpty ? (
         <div className="basket-page basket-page--empty">
           <div className="basket-empty">

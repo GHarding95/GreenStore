@@ -93,13 +93,21 @@ button:focus-visible,
   outline-offset: 2px;
 }
 
-#main-content:focus {
-  outline: none;
-}
+// Content-sized height only: flex-grow on main left a beige (--surface) gap above the footer.
+#main-content {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-#main-content:focus-visible {
-  outline: 3px solid var(--green-primary);
-  outline-offset: 2px;
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--green-primary);
+    outline-offset: 2px;
+  }
 }
 
 // App Component
@@ -157,9 +165,14 @@ input[type='text'] {
 }
 
 .btn-close {
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 0 0.2rem var(--green-light) !important;
+  &:hover {
+    box-shadow: 0 0 0 0.2rem rgba(27, 94, 58, 0.38) !important;
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: 0 0 0 0.2rem var(--green-primary) !important;
   }
 }
 

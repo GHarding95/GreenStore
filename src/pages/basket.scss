@@ -1,13 +1,23 @@
 // Basket page - minimalist green theme (scoped to .basket-page)
+body[data-route='/basket'] #main-content {
+  background-color: var(--surface-elevated);
+}
+
+.basket-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
 .basket-page {
   max-width: 720px;
   margin: 0 auto;
-  padding: 2.5rem 1rem 3.5rem;
+  width: 100%;
+  padding: 2.5rem 1rem clamp(4rem, 12vw, 6rem);
   text-align: left;
 
   @media (min-width: 768px) {
-    padding: 3rem 1.25rem 4rem;
+    padding: 3rem 1.25rem clamp(4.5rem, 10vh, 6.5rem);
   }
 }
 
